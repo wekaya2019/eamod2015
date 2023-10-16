@@ -3,7 +3,7 @@
 //===== By: ==================================================
 //= L0ne_W0lf
 //===== Current Version: =====================================
-//= 2.3
+//= 2.2
 //===== Compatible With: =====================================
 //= eAthena SVN
 //===== Description: =========================================
@@ -26,7 +26,6 @@
 //= 2.1 Applied updated eco/def systems. [L0ne_W0lf]
 //= 2.2 Fixed eco/def not actually incrementing. [L0ne_W0lf]
 //=     Can no longer gain eco/def higher than 100.
-//= 2.3 Fixed a possible exploit in guild castle investment. [Brian]
 //============================================================
 
 arug_cas02,1,1,0	script	Manager#aru02_02	111,{
@@ -38,32 +37,19 @@ OnInterIfInitOnce:
 
 OnRecvCastleAr02:
 	RequestGuildInfo GetCastleData("arug_cas02",1);
-	if (GetCastleData("arug_cas02",1) == 0) {
-		donpcevent "Manager#aru02_02::Onstart";
-	}
 	end;
 
-OnAgitStart2:
-	if (agitcheck2()) {
-		MapRespawnGuildID "arug_cas02",GetCastleData("arug_cas02",1),2;
-		GvgOn "arug_cas02";
-		donpcevent "Manager#aru02_02::Onstart";
-	}
-	else {
-		donpcevent "#aru02_RL00::OnDisable";
-		donpcevent "#aru02_RL01::OnDisable";
-		donpcevent "#aru02_RL02::OnDisable";
-		donpcevent "#aru02_RL03::OnDisable";
-	}
+OnAgitStart:
+	MapRespawnGuildID "arug_cas02",GetCastleData("arug_cas02",1),2;
+	GvgOn "arug_cas02";
+	donpcevent "Manager#aru02_02::Onstart";
 	end;
 
-OnAgitEnd2:
+OnAgitEnd:
 	GvgOff "arug_cas02";
-	if (GetCastleData("arug_cas02",1)) {
-		KillMonster "arug_cas02","Steward#aru02::OnStartArena";
-		donpcevent "Manager#aru02_02::Onreset";
-		donpcevent "Steward#aru02::Onstop";
-	}
+	KillMonster "arug_cas02","Steward#aru02::OnStartArena";
+	donpcevent "Manager#aru02_02::Onreset";
+	donpcevent "Steward#aru02::Onstop";
 	end;
 
 Onstart:
@@ -98,7 +84,7 @@ Onreset:
 	donpcevent "Control Device01#aru02::OnDisable";
 	donpcevent "Control Device02#aru02::OnDisable";
 	donpcevent "Control Device03#aru02::OnDisable";
-	if (agitcheck2()) {
+	if (agitcheck()) {
 		setarray $agit_ar02[0],0,0,1,1,1,0;
 	}
 	end;
@@ -201,7 +187,7 @@ arug_cas02,38,259,5	script	Yumenes#aru02_01	868,{
 			close;
 		}
 		else {
-			if (agitcheck2() == 0) {
+			if (agitcheck() == 0) {
 				mes "[Yumenes]";
 				mes "I am Yumenes, guardian of";
 				mes "this stronghold. For now,";
@@ -422,63 +408,63 @@ OnInit:
 arug_cas02,1,1,0	script	#aru02_gard01	-1,{
 OnEnable:
 	set .@defence,GetCastleData("arug_cas02",3);
-	guardian "arug_cas02",104,32,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //0;
+	guardian "arug_cas02",104,32,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //0;
 	if ((.@defence > 10) && (.@defence < 31)) {
 		set .MyMobCount,2;
-		guardian "arug_cas02",67,36,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //1;
+		guardian "arug_cas02",67,36,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //1;
 	}
 	else if ((.@defence > 30) && (.@defence < 51)) {
 		set .MyMobCount,3;
-		guardian "arug_cas02",67,36,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //1;
-		guardian "arug_cas02",67,85,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //2;
+		guardian "arug_cas02",67,36,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //1;
+		guardian "arug_cas02",67,85,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //2;
 	}
 	else if ((.@defence > 50) && (.@defence < 71)) {
 		set .MyMobCount,4;
-		guardian "arug_cas02",67,36,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //1;
-		guardian "arug_cas02",67,85,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //2;
-		guardian "arug_cas02",113,87,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //3;
+		guardian "arug_cas02",67,36,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //1;
+		guardian "arug_cas02",67,85,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //2;
+		guardian "arug_cas02",113,87,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //3;
 	}
 	else if (.@defence > 70) {
 		set .MyMobCount,5;
-		guardian "arug_cas02",67,36,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //1;
-		guardian "arug_cas02",67,85,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //2;
-		guardian "arug_cas02",113,87,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //3;
-		guardian "arug_cas02",122,112,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //4;
+		guardian "arug_cas02",67,36,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //1;
+		guardian "arug_cas02",67,85,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //2;
+		guardian "arug_cas02",113,87,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //3;
+		guardian "arug_cas02",122,112,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //4;
 	}
 	else {
 		set .MyMobCount,2;
-		guardian "arug_cas02",20,169,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //1;
+		guardian "arug_cas02",20,169,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //1;
 	}
 	initnpctimer;
 	end;
 
 OnTimer300000:
 	set .MyMobCount,.MyMobCount+1;
-	guardian "arug_cas02",67,60,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //5;
+	guardian "arug_cas02",67,60,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //5;
 	mapannounce "arug_cas02","The 1st Guardian has been summoned from the Gate House.",bc_map,"0xff4500";
 	end;
 
 OnTimer900000:
 	set .MyMobCount,.MyMobCount+1;
-	guardian "arug_cas02",90,167,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //6;
+	guardian "arug_cas02",90,167,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //6;
 	mapannounce "arug_cas02","The 2nd Guardian has been summoned from the Gate House.",bc_map,"0xff4500";
 	end;
 
 OnTimer1800000:
 	set .MyMobCount,.MyMobCount+1;
-	guardian "arug_cas02",91,119,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //7;
+	guardian "arug_cas02",91,119,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //7;
 	mapannounce "arug_cas02","The 3rd Guardian has been summoned from the Gate House.",bc_map,"0xff4500";
 	end;
 
 OnTimer2700000:
 	set .MyMobCount,.MyMobCount+1;
-	guardian "arug_cas02",122,112,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //8;
+	guardian "arug_cas02",122,112,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //8;
 	mapannounce "arug_cas02","The 4th Guardian has been summoned from the Gate House.",bc_map,"0xff4500";
 	end;
 
 OnTimer3600000:
 	set .MyMobCount,.MyMobCount+1;
-	guardian "arug_cas02",20,169,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //9;
+	guardian "arug_cas02",20,169,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //9;
 	mapannounce "arug_cas02","The 5th Guardian has been summoned from the Gate House.",bc_map,"0xff4500";
 	stopnpctimer;
 	end;
@@ -487,7 +473,7 @@ OnGuardianDied:
 	set .MyMobCount,.MyMobCount-1;
 	if (.MyMobCount < 2) {
 		set .MyMobCount,.MyMobCount+1;
-		guardian "arug_cas02",67,85,"Guardian",1899,"#aru02_gard01::OnGuardianDied"; //10;
+		guardian "arug_cas02",67,85,"Guardian Soldier",1899,"#aru02_gard01::OnGuardianDied"; //10;
 	}
 	end;
 
@@ -500,59 +486,59 @@ Onreset:
 arug_cas02,1,2,0	script	#aru02_gard02	-1,{
 OnEnable:
 	set .@defence,GetCastleData("arug_cas02",3);
-	guardian "arug_cas02",175,31,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //11;
+	guardian "arug_cas02",175,31,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //11;
 	if ((.@defence > 10) && (.@defence < 31)) {
 		set .MyMobCount,2;
-		guardian "arug_cas02",204,32,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //12;
+		guardian "arug_cas02",204,32,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //12;
 	}
 	else if ((.@defence > 30) && (.@defence < 51)) {
 		set .MyMobCount,3;
-		guardian "arug_cas02",204,32,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //12;
-		guardian "arug_cas02",211,63,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //13;
+		guardian "arug_cas02",204,32,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //12;
+		guardian "arug_cas02",211,63,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //13;
 	}
 	else if ((.@defence > 50) && (.@defence < 71)) {
 		set .MyMobCount,4;
-		guardian "arug_cas02",204,32,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //12;
-		guardian "arug_cas02",211,63,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //13;
-		guardian "arug_cas02",209,88,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //14;
+		guardian "arug_cas02",204,32,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //12;
+		guardian "arug_cas02",211,63,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //13;
+		guardian "arug_cas02",209,88,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //14;
 	}
 	else if (.@defence > 70) {
 		set .MyMobCount,5;
-		guardian "arug_cas02",204,32,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //12;
-		guardian "arug_cas02",211,63,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //13;
-		guardian "arug_cas02",209,88,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //14;
-		guardian "arug_cas02",161,91,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //15;
+		guardian "arug_cas02",204,32,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //12;
+		guardian "arug_cas02",211,63,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //13;
+		guardian "arug_cas02",209,88,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //14;
+		guardian "arug_cas02",161,91,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //15;
 	}
 	else {
 		set .MyMobCount,2;
-		guardian "arug_cas02",268,169,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //12;
+		guardian "arug_cas02",268,169,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //12;
 	}
 	initnpctimer;
 	end;
 
 OnTimer600000:
 	set .MyMobCount,.MyMobCount+1;
-	guardian "arug_cas02",186,170,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //16;
+	guardian "arug_cas02",186,170,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //16;
 	end;
 
 OnTimer1200000:
 	set .MyMobCount,.MyMobCount+1;
-	guardian "arug_cas02",183,121,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //17;
+	guardian "arug_cas02",183,121,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //17;
 	end;
 
 OnTimer2100000:
 	set .MyMobCount,.MyMobCount+1;
-	guardian "arug_cas02",150,110,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //18;
+	guardian "arug_cas02",150,110,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //18;
 	end;
 
 OnTimer3000000:
 	set .MyMobCount,.MyMobCount+1;
-	guardian "arug_cas02",161,91,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //19;
+	guardian "arug_cas02",161,91,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //19;
 	end;
 
 OnTimer3900000:
 	set .MyMobCount,.MyMobCount+1;
-	guardian "arug_cas02",209,88,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //20;
+	guardian "arug_cas02",209,88,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //20;
 	stopnpctimer;
 	end;
 
@@ -560,7 +546,7 @@ OnGuardianDied:
 	set .MyMobCount,.MyMobCount-1;
 	if (.MyMobCount < 2) {
 		set .MyMobCount,.MyMobCount+1;
-		guardian "arug_cas02",211,63,"Guardian",1899,"#aru02_gard02::OnGuardianDied"; //21;
+		guardian "arug_cas02",211,63,"Guardian Soldier",1899,"#aru02_gard02::OnGuardianDied"; //21;
 	}
 	end;
 
@@ -806,7 +792,7 @@ arug_cas02,33,168,0	script	1st Guardian Stone#aru02	844,{
 						close;
 					}
 					else {
-						if (agitcheck2() == 0) {
+						if (agitcheck() == 0) {
 							mes "^3355FFIt is impossible to";
 							mes "rebuild the Guardian";
 							mes "Stone because the";
@@ -1115,7 +1101,7 @@ arug_cas02,245,168,0	script	2nd Guardian Stone#aru02	844,{
 						close;
 					}
 					else {
-						if (agitcheck2() == 0) {
+						if (agitcheck() == 0) {
 							mes "^3355FFIt is impossible to";
 							mes "rebuild the Guardian";
 							mes "Stone because the";
@@ -1463,7 +1449,7 @@ arug_cas02,143,228,0	script	Control Device01#aru02	111,{
 					mes "you're just about done";
 					mes "with repairing the gate.^000000";
 					next;
-					if (agitcheck2() == 0) {
+					if (agitcheck() == 0) {
 						mes "^3355FFUnfortunately, the Fortress";
 						mes "Gate can't be reconstructed:";
 						mes "the Emperium is no longer here.^000000";
@@ -1700,7 +1686,7 @@ arug_cas02,118,356,0	script	Control Device02#aru02	111,{
 					mes "you're just about done";
 					mes "with repairing the gate.^000000";
 					next;
-					if (agitcheck2() == 0) {
+					if (agitcheck() == 0) {
 						mes "^3355FFUnfortunately, the Fortress";
 						mes "Gate can't be reconstructed:";
 						mes "the Emperium is no longer here.^000000";
@@ -1939,7 +1925,7 @@ arug_cas02,56,308,0	script	Control Device03#aru02	111,{
 					mes "you're just about done";
 					mes "with repairing the gate.^000000";
 					next;
-					if (agitcheck2() == 0) {
+					if (agitcheck() == 0) {
 						mes "^3355FFUnfortunately, the Fortress";
 						mes "Gate can't be reconstructed:";
 						mes "the Emperium is no longer here.^000000";
@@ -2323,7 +2309,7 @@ arug_cas02,303,341,3	script	Steward#aru02	55,{
 			mes "any further than that.";
 			close;
 		}
-		if (GetCastleData("arug_cas02",4) >= 2) {
+		if (GetCastleData("arug_cas02",4) == 2) {
 			mes "[ Steward ]";
 			mes "You've already made two";
 			mes "investments today, so you'll";
@@ -2349,14 +2335,6 @@ arug_cas02,303,341,3	script	Steward#aru02	55,{
 		next;
 		switch(select("Invest in Commercial Growth:Cancel")) {
 		case 1:
-			if (GetCastleData("arug_cas02",4) >= 2) {
-				mes "[ Steward ]";
-				mes "You've already made two";
-				mes "investments today, so you'll";
-				mes "have to wait until tomorrow";
-				mes "to make another investment.";
-				close;
-			}
 			if (Zeny < .@eco_invest) {
 				mes "[ Steward ]";
 				mes "I'm sorry, Master, but";
@@ -2366,6 +2344,7 @@ arug_cas02,303,341,3	script	Steward#aru02	55,{
 				close;
 			}
 			set zeny,zeny-.@eco_invest;
+			guild_addzenyeco .@eco_invest;
 			SetCastleData "arug_cas02",4,GetCastleData("arug_cas02",4)+1;
 			mes "[ Steward ]";
 			mes "A wise use of the guild's";
@@ -2425,7 +2404,7 @@ arug_cas02,303,341,3	script	Steward#aru02	55,{
 			mes "cannot be increased further.";
 			close;
 		}
-		if (GetCastleData("arug_cas02",5) >= 2) {
+		if (GetCastleData("arug_cas02",5) == 2) {
 			mes "Master, you've already";
 			mes "invested in Defense twice";
 			mes "today. You'll need to wait";
@@ -2449,15 +2428,6 @@ arug_cas02,303,341,3	script	Steward#aru02	55,{
 		next;
 		switch(select("Invest in Defense:Cancel")) {
 		case 1:
-			if (GetCastleData("arug_cas02",5) >= 2) {
-				mes "[ Steward ]";
-				mes "Master, you've already";
-				mes "invested in Defense twice";
-				mes "today. You'll need to wait";
-				mes "until tomorrow if you really";
-				mes "want to increase our defenses.";
-				close;
-			}
 			if (Zeny < .@def_invest) {
 				mes "[ Steward ]";
 				mes "I'm sorry, Master, but";
@@ -2467,6 +2437,7 @@ arug_cas02,303,341,3	script	Steward#aru02	55,{
 				close;
 			}
 			set zeny,zeny-.@def_invest;
+			guild_addzenydef .@def_invest;
 			SetCastleData "arug_cas02",5,GetCastleData("arug_cas02",5)+1;
 			mes "[ Steward ]";
 			mes "A wise use of the guild's";
@@ -2657,13 +2628,13 @@ OnStartArena:
 
 	set .msg,2;
 	if (.msg == 1) {
-		announce "Fortress [" + GetCastleName("arug_cas02") + "]'s 'Valfreyja' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all|bc_woe;
+		announce "Fortress [" + GetCastleName("arug_cas02") + "]'s 'Valfreyja' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all;
 		donpcevent "Manager#aru02_02::Onstart";
 	}
 	else if (.msg == 2) {
-		announce "The [" + getguildname(.@gid) + "] conquered the [Valfreyja 2] stronghold of "+GetCastleName("arug_cas02"),bc_all|bc_woe;
-		mapannounce "arug_cas02","The emperium has been shattered!",bc_map,"0x00FF00",FW_NORMAL,20,0,40;
-		if (agitcheck2()) {
+		announce "The [" + getguildname(.@gid) + "] conquered the [Valfreyja 2] stronghold of "+GetCastleName("arug_cas02"),bc_all;
+		mapannounce "arug_cas02","The emperium has been shattered!",bc_map,"0x00FF00";
+		if (agitcheck()) {
 			donpcevent "Manager#aru02_02::Onreset";
 			initnpctimer;
 		}
@@ -2673,7 +2644,7 @@ OnStartArena:
 		}
 	}
 	else if (.msg == 0) {
-		announce "Fortress [" + GetCastleName("arug_cas02") + "]'s 'Valfreyja' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all|bc_woe;
+		announce "Fortress [" + GetCastleName("arug_cas02") + "]'s 'Valfreyja' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all;
 		donpcevent "Manager#aru02_02::Onreset";
 		stopnpctimer;
 		end;
@@ -2684,7 +2655,7 @@ OnStartArena:
 
 OnTimer10000:
 	donpcevent "Manager#aru02_02::Onchange";
-	mapannounce "arug_cas02","Rebuild this stronghold's Guardian Stones and Fortress Gates to secure your guild's new aquisition!",bc_map,"0x00FF00",FW_NORMAL,20,0,40;
+	mapannounce "arug_cas02","Rebuild this stonghold's Guardian Stones and Fortress Gates to secure your guild's new aquisition!",bc_map,"0x00FF00";
 	end;
 }
 
@@ -2728,9 +2699,9 @@ arug_cas02,354,326,3	script	Kafra Employee#aru02	117,{
 					cutin "kafra_01",255;
 					end;
 				}
-				set zeny,zeny-200;
-				warp "rachel",115,125;
-				end;
+				mes "[Kafra Employee]";
+				mes "Este servicio no esta habilitado en WoE evento.";
+				close;
 			case 2:
 				cutin "kafra_01",255;
 			}
@@ -2802,19 +2773,7 @@ arug_cas02,354,326,3	script	Kafra Employee#aru02	117,{
 
 OnRecvCastleAr02:
 	if (GetCastleData("arug_cas02",1) == 0) {
-		monster "arug_cas02",0,0,"Evil Druid",1117,10;
-		monster "arug_cas02",0,0,"Khalitzburg",1132,4;
-		monster "arug_cas02",0,0,"Abysmal Knight",1219,3;
-		monster "arug_cas02",0,0,"Executioner",1205,1;
-		monster "arug_cas02",0,0,"Penomena",1216,10;
-		monster "arug_cas02",0,0,"Alarm",1193,18;
-		monster "arug_cas02",0,0,"Clock",1269,9;
-		monster "arug_cas02",0,0,"Raydric Archer",1276,12;
-		monster "arug_cas02",0,0,"Wanderer",1208,3;
-		monster "arug_cas02",0,0,"Alice",1275,1;
-		monster "arug_cas02",0,0,"Bloody Knight",1268,2;
-		monster "arug_cas02",0,0,"Dark Lord",1272,2;
-		monster "arug_cas02",0,0,"Tower Keeper",1270,4;
+		;
 	}
 	if (GetCastleData("arug_cas02",9) < 1) {
 		disablenpc "Kafra Employee#aru02";
@@ -2835,91 +2794,3 @@ arug_cas02,386,227,0	script	#aru02_switch	111,{
 		close;
 	}
 }
-
-aru_gld,80,41,6	script	Cyr#flag_Ar02_1::Ar02_Flag	722,{
-	set .@GID, GetCastleData("arug_cas02",1);
-	if (.@GID == 0) {
-		mes "[ Arunafeltz Royal Edict ]";
-		mes "The Holy Kingdom of";
-		mes "Arunafeltz declares that";
-		mes "one has yet to claim lordship";
-		mes "over this stronghold. The one";
-		mes "that breaks the Emperium will";
-		mes "be recognized as its new owner.";
-		close;
-	}
-	else {
-		if (getcharid(2) == .@GID) {
-			mes "[ Ringing Voice ]";
-			mes "Courageous one,";
-			mes "do you wish to return";
-			mes "to your stronghold?";
-			next;
-			switch(select("Return to the Stronghold:Cancel")) {
-			case 1:
-				set .@GID, GetCastleData("arug_cas02",1);
-				if (getcharid(2) == .@GID) {
-					warp "arug_cas02",43,256;
-					end;
-				}
-				close;
-			case 2:
-				close;
-			}
-		}
-		mes "[ Arunafeltz Royal Edict ]";
-		mes "The Holy Kingdom of";
-		mes "Arunafeltz decrees that";
-		mes "this stronghold is owned";
-		mes "by the ^FF0000" + GetGuildName(.@GID) + "^000000 Guild.";
-		next;
-		mes "[ Arunafeltz Royal Edict ]";
-		mes "^FF0000" + GetGuildMaster(.@GID) + "^000000 is";
-		mes "Guild Master of ^FF0000" + GetGuildName(.@GID) + "^000000.";
-		mes "Any that object must claim this";
-		mes "stronghold through strength of";
-		mes "steel and magic during the";
-		mes "appointed Guild Siege times.";
-		close;
-	}
-
-OnRecvCastleAr02:
-	FlagEmblem GetCastleData("arug_cas02",1);
-	end;
-}
-
-aru_gld,80,52,6	duplicate(Ar02_Flag)	Cyr#flag_Ar02_2	722
-
-aru_gld,120,83,5	script	Cyr#flag_Ar02_3	722,{
-	set .@GID, GetCastleData("arug_cas02",1);
-	if (.@GID == 0) {
-		mes "[ Arunafeltz Royal Edict ]";
-		mes "The Holy Kingdom of";
-		mes "Arunafeltz declares that";
-		mes "one has yet to claim lordship";
-		mes "over this stronghold. The one";
-		mes "that breaks the Emperium will";
-		mes "be recognized as its new owner.";
-		close;
-	}
-	else {
-		mes "[ Arunafeltz Royal Edict ]";
-		mes "The Holy Kingdom of";
-		mes "Arunafeltz decrees that";
-		mes "this stronghold is owned";
-		mes "by the ^FF0000" + getGuildName(.@GID) + "^000000 Guild.";
-		next;
-		mes "[ Arunafeltz Royal Edict ]";
-		mes "^FF0000" + getGuildMaster(.@GID) + "^000000 is";
-		mes "Guild Master of ^FF0000" + getGuildName(.@GID) + "^000000.";
-		mes "Any that object must claim this";
-		mes "stronghold through strength of";
-		mes "steel and magic during the";
-		mes "appointed Guild Siege times.";
-		close;
-	}
-OnRecvCastleAr02:
-	FlagEmblem GetCastleData("arug_cas02",1);
-	end;
-}
-

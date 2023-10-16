@@ -3,7 +3,7 @@
 //===== By: ==================================================
 //= L0ne_W0lf
 //===== Current Version: =====================================
-//= 2.0
+//= 1.8
 //===== Compatible With: =====================================
 //= eAthena SVN
 //===== Description: =========================================
@@ -23,7 +23,6 @@
 //= 1.8 Applied updated eco/def systems. [L0ne_W0lf]
 //= 1.9 Fixed eco/def not actually incrementing. [L0ne_W0lf]
 //=     Can no longer gain eco/def higher than 100.
-//= 2.0 Fixed a possible exploit in guild castle investment. [Brian]
 //============================================================
 
 arug_cas01,1,1,0	script	Manager#aru01_02	111,{
@@ -35,32 +34,19 @@ OnInterIfInitOnce:
 
 OnRecvCastleAr01:
 	RequestGuildInfo GetCastleData("arug_cas01",1);
-	if (GetCastleData("arug_cas01",1) == 0) {
-		donpcevent "Manager#aru01_02::Onstart";
-	}
 	end;
 
-OnAgitStart2:
-	if (agitcheck2()) {
-		MapRespawnGuildID "arug_cas01",GetCastleData("arug_cas01",1),2;
-		GvgOn "arug_cas01";
-		donpcevent "Manager#aru01_02::Onstart";
-	}
-	else {
-		donpcevent "#aru01_RL00::OnDisable";
-		donpcevent "#aru01_RL01::OnDisable";
-		donpcevent "#aru01_RL02::OnDisable";
-		donpcevent "#aru01_RL03::OnDisable";
-	}
+OnAgitStart:
+	MapRespawnGuildID "arug_cas01",GetCastleData("arug_cas01",1),6;
+	GvgOn "arug_cas01";
+	donpcevent "Manager#aru01_02::Onstart";
 	end;
 
-OnAgitEnd2:
+OnAgitEnd:
 	GvgOff "arug_cas01";
-	if (GetCastleData("arug_cas01",1)) {
-		KillMonster "arug_cas01","Steward#aru01::OnStartArena";
-		donpcevent "Manager#aru01_02::Onreset";
-		donpcevent "Steward#aru01::Onstop";
-	}
+	KillMonster "arug_cas01","Steward#aru01::OnStartArena";
+	donpcevent "Manager#aru01_02::Onreset";
+	donpcevent "Steward#aru01::Onstop";
 	end;
 
 Onstart:
@@ -95,7 +81,7 @@ Onreset:
 	donpcevent "Control Device01#aru01::OnDisable";
 	donpcevent "Control Device02#aru01::OnDisable";
 	donpcevent "Control Device03#aru01::OnDisable";
-	if (agitcheck2()) {
+	if (agitcheck()) {
 		setarray $agit_ar01[0],0,0,1,1,1,0;
 	}
 	end;
@@ -198,7 +184,7 @@ arug_cas01,112,193,1	script	Brace#aru01_01	868,{
 			close;
 		}
 		else {
-			if (agitcheck2() == 0) {
+			if (agitcheck() == 0) {
 				mes "[Brace]";
 				mes "I am Brace, guardian of";
 				mes "this stronghold. For now,";
@@ -803,7 +789,7 @@ arug_cas01,211,234,0	script	1st Guardian Stone#aru01	844,{
 						close;
 					}
 					else {
-						if (agitcheck2() == 0) {
+						if (agitcheck() == 0) {
 							mes "^3355FFIt is impossible to";
 							mes "rebuild the Guardian";
 							mes "Stone because the";
@@ -1112,7 +1098,7 @@ arug_cas01,308,189,0	script	2nd Guardian Stone#aru01	844,{
 						close;
 					}
 					else {
-						if (agitcheck2() == 0) {
+						if (agitcheck() == 0) {
 							mes "^3355FFIt is impossible to";
 							mes "rebuild the Guardian";
 							mes "Stone because the";
@@ -1458,7 +1444,7 @@ arug_cas01,247,52,0	script	Control Device01#aru01	111,{
 					mes "you're just about done";
 					mes "with repairing the gate.^000000";
 					next;
-					if (agitcheck2() == 0) {
+					if (agitcheck() == 0) {
 						mes "^3355FFUnfortunately, the Fortress";
 						mes "Gate can't be reconstructed:";
 						mes "the Emperium is no longer here.^000000";
@@ -1695,7 +1681,7 @@ arug_cas01,118,131,0	script	Control Device02#aru01	111,{
 					mes "you're just about done";
 					mes "with repairing the gate.^000000";
 					next;
-					if (agitcheck2() == 0) {
+					if (agitcheck() == 0) {
 						mes "^3355FFUnfortunately, the Fortress";
 						mes "Gate can't be reconstructed:";
 						mes "the Emperium is no longer here.^000000";
@@ -1934,7 +1920,7 @@ arug_cas01,82,172,0	script	Control Device03#aru01	111,{
 					mes "you're just about done";
 					mes "with repairing the gate.^000000";
 					next;
-					if (agitcheck2() == 0) {
+					if (agitcheck() == 0) {
 						mes "^3355FFUnfortunately, the Fortress";
 						mes "Gate can't be reconstructed:";
 						mes "the Emperium is no longer here.^000000";
@@ -2362,7 +2348,7 @@ arug_cas01,92,380,3	script	Steward#aru01	55,{
 			mes "any further than that.";
 			close;
 		}
-		if (GetCastleData("arug_cas01",4) >= 2) {
+		if (GetCastleData("arug_cas01",4) == 2) {
 			mes "[ Steward ]";
 			mes "You've already made two";
 			mes "investments today, so you'll";
@@ -2388,14 +2374,6 @@ arug_cas01,92,380,3	script	Steward#aru01	55,{
 		next;
 		switch(select("Invest in Commercial Growth:Cancel")) {
 		case 1:
-			if (GetCastleData("arug_cas01",4) >= 2) {
-				mes "[ Steward ]";
-				mes "You've already made two";
-				mes "investments today, so you'll";
-				mes "have to wait until tomorrow";
-				mes "to make another investment.";
-				close;
-			}
 			if (Zeny < .@eco_invest) {
 				mes "[ Steward ]";
 				mes "I'm sorry, Master, but";
@@ -2405,6 +2383,7 @@ arug_cas01,92,380,3	script	Steward#aru01	55,{
 				close;
 			}
 			set zeny,zeny-.@eco_invest;
+			guild_addzenyeco .@eco_invest;
 			SetCastleData "arug_cas01",4,GetCastleData("arug_cas01",4)+1;
 			mes "[ Steward ]";
 			mes "A wise use of the guild's";
@@ -2464,7 +2443,7 @@ arug_cas01,92,380,3	script	Steward#aru01	55,{
 			mes "cannot be increased further.";
 			close;
 		}
-		if (GetCastleData("arug_cas01",5) >= 2) {
+		if (GetCastleData("arug_cas01",5) == 2) {
 			mes "Master, you've already";
 			mes "invested in Defense twice";
 			mes "today. You'll need to wait";
@@ -2488,15 +2467,6 @@ arug_cas01,92,380,3	script	Steward#aru01	55,{
 		next;
 		switch(select("Invest in Defense:Cancel")) {
 		case 1:
-			if (GetCastleData("arug_cas01",5) >= 2) {
-				mes "[ Steward ]";
-				mes "Master, you've already";
-				mes "invested in Defense twice";
-				mes "today. You'll need to wait";
-				mes "until tomorrow if you really";
-				mes "want to increase our defenses.";
-				close;
-			}
 			if (Zeny < .@def_invest) {
 				mes "[ Steward ]";
 				mes "I'm sorry, Master, but";
@@ -2506,6 +2476,7 @@ arug_cas01,92,380,3	script	Steward#aru01	55,{
 				close;
 			}
 			set zeny,zeny-.@def_invest;
+			guild_addzenydef .@def_invest;
 			SetCastleData "arug_cas01",5,GetCastleData("arug_cas01",5)+1;
 			mes "[ Steward ]";
 			mes "A wise use of the guild's";
@@ -2696,13 +2667,13 @@ OnStartArena:
 
 	set .msg,2;
 	if (.msg == 1) {
-		announce "Fortress [" + GetCastleName("arug_cas01") + "]'s 'Valfreyja' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all|bc_woe;
+		announce "Fortress [" + GetCastleName("arug_cas01") + "]'s 'Valfreyja' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all;
 		donpcevent "Manager#aru01_02::Onstart";
 	}
 	else if (.msg == 2) {
-		announce "The [" + getguildname(.@gid) + "] conquered the [Valfreyja 1] stronghold of " + GetCastleName("arug_cas01"),bc_all|bc_woe;
-		mapannounce "arug_cas01","The emperium has been shattered!",bc_map,"0x00FF00",FW_NORMAL,20,0,40;
-		if (agitcheck2()) {
+		announce "The [" + getguildname(.@gid) + "] conquered the [Valfreyja 1] stronghold of " + GetCastleName("arug_cas01"),bc_all;
+		mapannounce "arug_cas01","The emperium has been shattered!",bc_map,"0x00FF00";
+		if (agitcheck()) {
 			donpcevent "Manager#aru01_02::Onreset";
 			initnpctimer;
 		}
@@ -2712,7 +2683,7 @@ OnStartArena:
 		}
 	}
 	else if (.msg == 0) {
-		announce "Fortress [" + GetCastleName("arug_cas01") + "]'s 'Valfreyja' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all|bc_woe;
+		announce "Fortress [" + GetCastleName("arug_cas01") + "]'s 'Valfreyja' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all;
 		donpcevent "Manager#aru01_02::Onreset";
 		stopnpctimer;
 		end;
@@ -2723,7 +2694,7 @@ OnStartArena:
 
 OnTimer10000:
 	donpcevent "Manager#aru01_02::Onchange";
-	mapannounce "arug_cas01","Rebuild this stronghold's Guardian Stones and Fortress Gates to secure your guild's new aquisition!",bc_map,"0x00FF00",FW_NORMAL,20,0,40;
+	mapannounce "arug_cas01","Rebuild this stonghold's Guardian Stones and Fortress Gates to secure your guild's new aquisition!",bc_map,"0x00FF00";
 	end;
 }
 
@@ -2767,9 +2738,9 @@ arug_cas01,31,362,3	script	Kafra Employee#aru01	117,{
 					cutin "kafra_01",255;
 					end;
 				}
-				set zeny,zeny-200;
-				warp "rachel",115,125;
-				end;
+				mes "[Kafra Employee]";
+				mes "Este servicio no esta habilitado en WoE evento.";
+				close;
 			case 2:
 				cutin "kafra_01",255;
 			}
@@ -2841,19 +2812,7 @@ arug_cas01,31,362,3	script	Kafra Employee#aru01	117,{
 
 OnRecvCastleAr01:
 	if (GetCastleData("arug_cas01",1) == 0) {
-		monster "arug_cas01",0,0,"Evil Druid",1117,10;
-		monster "arug_cas01",0,0,"Khalitzburg",1132,4;
-		monster "arug_cas01",0,0,"Abysmal Knight",1219,3;
-		monster "arug_cas01",0,0,"Executioner",1205,1;
-		monster "arug_cas01",0,0,"Penomena",1216,10;
-		monster "arug_cas01",0,0,"Alarm",1193,18;
-		monster "arug_cas01",0,0,"Clock",1269,9;
-		monster "arug_cas01",0,0,"Raydric Archer",1276,12;
-		monster "arug_cas01",0,0,"Wanderer",1208,3;
-		monster "arug_cas01",0,0,"Alice",1275,1;
-		monster "arug_cas01",0,0,"Bloody Knight",1268,2;
-		monster "arug_cas01",0,0,"Dark Lord",1272,2;
-		monster "arug_cas01",0,0,"Tower Keeper",1270,4;
+		;
 	}
 	if (GetCastleData("arug_cas01",9) < 1) {
 		disablenpc "Kafra Employee#aru01";
@@ -2874,59 +2833,3 @@ arug_cas01,259,371,0	script	#aru01_switch	111,{
 		close;
 	}
 }
-
-aru_gld,164,270,4	script	Mardol#flag_Ar01_1::Ar01_Flag	722,{
-	set .@GID, GetCastleData("arug_cas01",1);
-	if (.@GID == 0) {
-		mes "[ Arunafeltz Royal Edict ]";
-		mes "The Holy Kingdom of";
-		mes "Arunafeltz declares that";
-		mes "one has yet to claim lordship";
-		mes "over this stronghold. The one";
-		mes "that breaks the Emperium will";
-		mes "be recognized as its new owner.";
-		close;
-	}
-	else {
-		if (getcharid(2) == .@GID) {
-			mes "[ Ringing Voice ]";
-			mes "Courageous one,";
-			mes "do you wish to return";
-			mes "to your stronghold?";
-			next;
-			switch(select("Return to the Stronghold:Cancel")) {
-			case 1:
-				set .@GID, GetCastleData("arug_cas01",1);
-				if (getcharid(2) == .@GID) {
-					warp "arug_cas01",67,193;
-					end;
-				}
-				close;
-			case 2:
-				close;
-			}
-		}
-		mes "[ Arunafeltz Royal Edict ]";
-		mes "The Holy Kingdom of";
-		mes "Arunafeltz decrees that";
-		mes "this stronghold is owned";
-		mes "by the ^FF0000" + GetGuildName(.@GID) + "^000000 Guild.";
-		next;
-		mes "[ Arunafeltz Royal Edict ]";
-		mes "^FF0000" + GetGuildMaster(.@GID) + "^000000 is";
-		mes "Guild Master of ^FF0000" + GetGuildName(.@GID) + "^000000.";
-		mes "Any that object must claim this";
-		mes "stronghold through strength of";
-		mes "steel and magic during the";
-		mes "appointed Guild Siege times.";
-		close;
-	}
-
-OnRecvCastleAr01:
-	FlagEmblem GetCastleData("arug_cas01",1);
-	end;
-}
-
-aru_gld,142,235,4	duplicate(Ar01_Flag)	Mardol#flag_Ar01_2	722
-aru_gld,164,245,5	duplicate(Ar01_Flag)	Mardol#flag_Ar01_3	722
-aru_gld,182,255,5	duplicate(Ar01_Flag)	Mardol#flag_Ar01_4	722

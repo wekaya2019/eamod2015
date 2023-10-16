@@ -28,7 +28,7 @@ OnInit:
 	// Battleground Arena Name - for announcements
 	setarray .BG_Names$[0],		"Capture the Flag","Eye of Storm","Triple Inferno","Team DeathMatch",    "Bossnia","Conquest","Stone Control","Domination",    "Rush";
 	// Minimum Players to start the BG
-	setarray .BG_Min[0],	                         2,             2,               2,                2,            2,        1,              1,           2,        2;
+	setarray .BG_Min[0],	                         1,             1,               1,                1,            1,        1,              1,           1,        1;
 	// Maximum Players per Team
 	setarray .BG_Max[0],	                        14,            14,              14,               14,           14,        3,             5,          14,        14;
 	// BG Message Colors

@@ -3,7 +3,7 @@
 //===== By: ================================================== 
 //= L0ne_W0lf
 //===== Current Version: ===================================== 
-//= 1.4
+//= 1.2
 //===== Compatible With: ===================================== 
 //= eAthena SVN
 //===== Description: ========================================= 
@@ -19,8 +19,6 @@
 //=     Added Town Teleport Scroll Function
 //=     Added Seige Teleport Scroll Function
 //= 1.2 Updated the dungeon teleport scroll menu. [L0ne_w0lf]
-//= 1.3 Implemented Aozi Giant Flywing Fix. (bugreport:4242) [L0ne_w0lf]
-//= 1.4 Simplified Giant Flywing function using warpparty. [L0ne_w0lf]
 //============================================================ 
 
 // Kafra Card
@@ -48,45 +46,29 @@ function	script	F_CashPartyCall	{
 	warp "Random",0,0;
 	if(getpartyleader(getcharid(1),2) == getcharid(0)) {
 		getmapxy .@mapl$, .@xl, .@yl, 0;
-		warpparty .@mapl$, .@xl, .@yl, getcharid(1), .@mapl$;
-	}
-	return;
-}
-
-/*
-function	script	F_CashPartyCall2	{
-	warp "Random",0,0;
-	if(getpartyleader(getcharid(1),2) == getcharid(0)) {
-		getmapxy .@mapl$, .@xl, .@yl, 0;
-		getpartymember getcharid(1),2;
+		getpartymember getcharid(1);
 		set .@partymembercount, $@partymembercount;
-		copyarray .@partymemberaid[0], $@partymemberaid[0], .@partymembercount;
-		for(set .@i, 0; .@i < .@partymembercount; set .@i, .@i + 1) {
-			if(attachrid(.@partymemberaid[.@i])) {
-				if(strcharinfo(3) == .@mapl$ && HP > 0) { 
-					warp .@mapl$, .@xl, .@yl;
-				}
-			}
-		}
+		copyarray .@partymembername$[0], $@partymembername$[0], .@partymembercount;
+		for(set .@i, 0; .@i < .@partymembercount; set .@i, .@i + 1)
+		if(!(getmapxy(.@mapm$, .@xm, .@ym, 0, .@partymembername$[.@i])) && (.@mapm$ == .@mapl$))
+		warpchar .@mapl$, .@xl, .@yl, getcharid(0, .@partymembername$[.@i]);
 	}
 	return;
 }
-*/
 
 // Neuralizer
 //============================================================ 
 // - Reset players skills. Weight must be 0, options must be off.
 // - No arguments.
 function	script	F_CashReset	{
-	if (Class != Job_Novice) {
-		if (Weight < 1) { 
-			if (checkriding() || checkfalcon() || checkcart()) return;
-			else {
-				resetskill;
-				sc_end SC_ALL;
-			}
-		}
+	if( Class != Job_Novice && Weight < 10000 && !checkriding() && !checkfalcon() && !checkcart() )
+	{
+		sc_end SC_ALL;
+		resetskill;
 	}
+	else
+		getitem 12213,1;
+
 	return;
 }
 
@@ -177,7 +159,7 @@ function	script	F_CashTele	{
 		case 2: warp "prontera",167,68; end;
 		case 3: warp "geffen",121,147; end;
 		case 4: warp "aldebaran",168,112; end;
-		case 5: warp "izlude",128,136; end;
+		case 5: warp "izlude",128,105; end;
 		}
 	case 2:
 		switch(select("Savepoint:Payon:Alberta:Morroc:Comodo")) {

@@ -3,7 +3,7 @@
 //===== By: ==================================================
 //= L0ne_W0lf
 //===== Current Version: =====================================
-//= 2.1
+//= 2.0
 //===== Compatible With: =====================================
 //= eAthena SVN
 //===== Description: =========================================
@@ -24,7 +24,6 @@
 //= 1.9 Applied updated eco/def systems. [L0ne_W0lf]
 //= 2.0 Fixed eco/def not actually incrementing. [L0ne_W0lf]
 //=     Can no longer gain eco/def higher than 100.
-//= 2.1 Fixed a possible exploit in guild castle investment. [Brian]
 //============================================================
 
 schg_cas01,1,1,0	script	Manager#sch01_02	111,{
@@ -36,32 +35,19 @@ OnInterIfInitOnce:
 
 OnRecvCastleSc01:
 	RequestGuildInfo GetCastleData("schg_cas01",1);
-	if (GetCastleData("schg_cas01",1) == 0) {
-		donpcevent "Manager#sch01_02::Onstart";
-	}
 	end;
 
-OnAgitStart2:
-	if (agitcheck2()) {
-		MapRespawnGuildID "schg_cas01",GetCastleData("schg_cas01",1),2;
-		GvgOn "schg_cas01";
-		donpcevent "Manager#sch01_02::Onstart";
-	}
-	else {
-		donpcevent "#sch01_RL00::OnDisable";
-		donpcevent "#sch01_RL01::OnDisable";
-		donpcevent "#sch01_RL02::OnDisable";
-		donpcevent "#sch01_RL03::OnDisable";
-	}
+OnAgitStart:
+	MapRespawnGuildID "schg_cas01",GetCastleData("schg_cas01",1),2;
+	GvgOn "schg_cas01";
+	donpcevent "Manager#sch01_02::Onstart";
 	end;
 
-OnAgitEnd2:
+OnAgitEnd:
 	GvgOff "schg_cas01";
-	if (GetCastleData("schg_cas01",1)) {
-		KillMonster "schg_cas01","Steward#sch01::OnStartArena";
-		donpcevent "Manager#sch01_02::Onreset";
-		donpcevent "Steward#sch01::Onstop";
-	}
+	KillMonster "schg_cas01","Steward#sch01::OnStartArena";
+	donpcevent "Manager#sch01_02::Onreset";
+	donpcevent "Steward#sch01::Onstop";
 	end;
 
 Onstart:
@@ -96,7 +82,7 @@ Onreset:
 	donpcevent "Control Device01#sch01::OnDisable";
 	donpcevent "Control Device02#sch01::OnDisable";
 	donpcevent "Control Device03#sch01::OnDisable";
-	if (agitcheck2()) {
+	if (agitcheck()) {
 		setarray $agit_sc01[0],0,0,1,1,1,0;
 	}
 	end;
@@ -199,7 +185,7 @@ schg_cas01,123,306,3	script	Ef#sch01_01	868,{
 			close;
 		}
 		else {
-			if (agitcheck2() == 0) {
+			if (agitcheck() == 0) {
 				mes "[Ef]";
 				mes "I am Ef, guardian of";
 				mes "this stronghold. For now,";
@@ -804,7 +790,7 @@ schg_cas01,27,36,0	script	1st Guardian Stone#sch01	844,{
 						close;
 					}
 					else {
-						if (agitcheck2() == 0) {
+						if (agitcheck() == 0) {
 							mes "^3355FFIt is impossible to";
 							mes "rebuild the Guardian";
 							mes "Stone because the";
@@ -1113,7 +1099,7 @@ schg_cas01,208,75,0	script	2nd Guardian Stone#sch01	844,{
 						close;
 					}
 					else {
-						if (agitcheck2() == 0) {
+						if (agitcheck() == 0) {
 							mes "^3355FFIt is impossible to";
 							mes "rebuild the Guardian";
 							mes "Stone because the";
@@ -1464,7 +1450,7 @@ schg_cas01,124,52,0	script	Control Device01#sch01	111,{
 					mes "you're just about done";
 					mes "with repairing the gate.^000000";
 					next;
-					if (agitcheck2() == 0) {
+					if (agitcheck() == 0) {
 						mes "^3355FFUnfortunately, the Fortress";
 						mes "Gate can't be reconstructed:";
 						mes "the Emperium is no longer here.^000000";
@@ -1701,7 +1687,7 @@ schg_cas01,128,157,0	script	Control Device02#sch01	111,{
 					mes "you're just about done";
 					mes "with repairing the gate.^000000";
 					next;
-					if (agitcheck2() == 0) {
+					if (agitcheck() == 0) {
 						mes "^3355FFUnfortunately, the Fortress";
 						mes "Gate can't be reconstructed:";
 						mes "the Emperium is no longer here.^000000";
@@ -1940,7 +1926,7 @@ schg_cas01,109,247,0	script	Control Device03#sch01	111,{
 					mes "you're just about done";
 					mes "with repairing the gate.^000000";
 					next;
-					if (agitcheck2() == 0) {
+					if (agitcheck() == 0) {
 						mes "^3355FFUnfortunately, the Fortress";
 						mes "Gate can't be reconstructed:";
 						mes "the Emperium is no longer here.^000000";
@@ -2370,7 +2356,7 @@ schg_cas01,247,305,3	script	Steward#sch01	55,{
 			mes "any further than that.";
 			close;
 		}
-		if (GetCastleData("schg_cas01",4) >= 2) {
+		if (GetCastleData("schg_cas01",4) == 2) {
 			mes "[ Steward ]";
 			mes "You've already made two";
 			mes "investments today, so you'll";
@@ -2396,14 +2382,6 @@ schg_cas01,247,305,3	script	Steward#sch01	55,{
 		next;
 		switch(select("Invest in Commercial Growth:Cancel")) {
 		case 1:
-			if (GetCastleData("schg_cas01",4) >= 2) {
-				mes "[ Steward ]";
-				mes "You've already made two";
-				mes "investments today, so you'll";
-				mes "have to wait until tomorrow";
-				mes "to make another investment.";
-				close;
-			}
 			if (Zeny < .@eco_invest) {
 				mes "[ Steward ]";
 				mes "I'm sorry, Master, but";
@@ -2413,6 +2391,7 @@ schg_cas01,247,305,3	script	Steward#sch01	55,{
 				close;
 			}
 			set zeny,zeny-.@eco_invest;
+			guild_addzenyeco .@eco_invest;
 			SetCastleData "schg_cas01",4,GetCastleData("schg_cas01",4)+1;
 			mes "[ Steward ]";
 			mes "A wise use of the guild's";
@@ -2472,7 +2451,7 @@ schg_cas01,247,305,3	script	Steward#sch01	55,{
 			mes "cannot be increased further.";
 			close;
 		}
-		if (GetCastleData("schg_cas01",5) >= 2) {
+		if (GetCastleData("schg_cas01",5) == 2) {
 			mes "Master, you've already";
 			mes "invested in Defense twice";
 			mes "today. You'll need to wait";
@@ -2496,15 +2475,6 @@ schg_cas01,247,305,3	script	Steward#sch01	55,{
 		next;
 		switch(select("Invest in Defense:Cancel")) {
 		case 1:
-			if (GetCastleData("schg_cas01",5) >= 2) {
-				mes "[ Steward ]";
-				mes "Master, you've already";
-				mes "invested in Defense twice";
-				mes "today. You'll need to wait";
-				mes "until tomorrow if you really";
-				mes "want to increase our defenses.";
-				close;
-			}
 			if (Zeny < .@def_invest) {
 				mes "[ Steward ]";
 				mes "I'm sorry, Master, but";
@@ -2514,6 +2484,7 @@ schg_cas01,247,305,3	script	Steward#sch01	55,{
 				close;
 			}
 			set zeny,zeny-.@def_invest;
+			guild_addzenydef .@def_invest;
 			SetCastleData "schg_cas01",5,GetCastleData("schg_cas01",5)+1;
 			mes "[ Steward ]";
 			mes "A wise use of the guild's";
@@ -2704,13 +2675,13 @@ OnStartArena:
 
 	set .msg,2;
 	if (.msg == 1) {
-		announce "Fortress [" + GetCastleName("schg_cas01") + "]'s 'Nithafjoll' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all|bc_woe;
+		announce "Fortress [" + GetCastleName("schg_cas01") + "]'s 'Nithafjoll' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all;
 		donpcevent "Manager#sch01_02::Onstart";
 	}
 	else if (.msg == 2) {
-		announce "The [" + getguildname(.@gid) + "] conquered the [Nithafjoll 1] stronghold of "+GetCastleName("schg_cas01"),bc_all|bc_woe;
-		mapannounce "schg_cas01","The emperium has been shattered!",bc_map,"0x00FF00",FW_NORMAL,20,0,40;
-		if (agitcheck2()) {
+		announce "The [" + getguildname(.@gid) + "] conquered the [Nithafjoll 1] stronghold of "+GetCastleName("schg_cas01"),bc_all;
+		mapannounce "schg_cas01","The emperium has been shattered!",bc_map,"0x00FF00";
+		if (agitcheck()) {
 			donpcevent "Manager#sch01_02::Onreset";
 			initnpctimer;
 		}
@@ -2720,7 +2691,7 @@ OnStartArena:
 		}
 	}
 	else if (.msg == 0) {
-		announce "Fortress [" + GetCastleName("schg_cas01") + "]'s 'Nithafjoll' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all|bc_woe;
+		announce "Fortress [" + GetCastleName("schg_cas01") + "]'s 'Nithafjoll' was captured by [" + getguildname(.@gid) + "] Guild.",bc_all;
 		donpcevent "Manager#sch01_02::Onreset";
 		stopnpctimer;
 		end;
@@ -2731,7 +2702,7 @@ OnStartArena:
 
 OnTimer10000:
 	donpcevent "Manager#sch01_02::Onchange";
-	mapannounce "schg_cas01","Rebuild this stronghold's Guardian Stones and Fortress Gates to secure your guild's new aquisition!",bc_map,"0x00FF00",FW_NORMAL,20,0,40;
+	mapannounce "schg_cas01","Rebuild this stonghold's Guardian Stones and Fortress Gates to secure your guild's new aquisition!",bc_map,"0x00FF00";
 	end;
 }
 
@@ -2775,9 +2746,9 @@ schg_cas01,300,287,5	script	Kafra Employee#sch01	117,{
 					cutin "kafra_01",255;
 					end;
 				}
-				set zeny,zeny-200;
-				warp "yuno",158,125;
-				end;
+				mes "[Kafra Employee]";
+				mes "Este servicio no esta habilitado en WoE evento.";
+				close;
 			case 2:
 				cutin "kafra_01",255;
 			}
@@ -2847,21 +2818,9 @@ schg_cas01,300,287,5	script	Kafra Employee#sch01	117,{
 		end;
 	}
 
-OnRecvCastlesc01:
+OnRecvCastleSc01:
 	if (GetCastleData("schg_cas01",1) == 0) {
-		monster "schg_cas01",0,0,"Evil Druid",1117,10;
-		monster "schg_cas01",0,0,"Khalitzburg",1132,4;
-		monster "schg_cas01",0,0,"Abysmal Knight",1219,3;
-		monster "schg_cas01",0,0,"Executioner",1205,1;
-		monster "schg_cas01",0,0,"Penomena",1216,10;
-		monster "schg_cas01",0,0,"Alarm",1193,18;
-		monster "schg_cas01",0,0,"Clock",1269,9;
-		monster "schg_cas01",0,0,"Raydric Archer",1276,12;
-		monster "schg_cas01",0,0,"Wanderer",1208,3;
-		monster "schg_cas01",0,0,"Alice",1275,1;
-		monster "schg_cas01",0,0,"Bloody Knight",1268,2;
-		monster "schg_cas01",0,0,"Dark Lord",1272,2;
-		monster "schg_cas01",0,0,"Tower Keeper",1270,4;
+		;
 	}
 	if (GetCastleData("schg_cas01",9) < 1) {
 		disablenpc "Kafra Employee#sch01";
@@ -2882,57 +2841,3 @@ schg_cas01,391,391,0	script	 #sch01_switch	111,{
 		close;
 	}
 }
-
-sch_gld,290,90,0	script	Himinn#flag_sc01_1::Sc01_Flag	722,{
-	set .@GID, GetCastleData("schg_cas01",1);
-	if (.@GID == 0) {
-		mes "[ Schwaltzvalt Royal Edict ]";
-		mes "The Holy Kingdom of";
-		mes "Schwaltzvalt declares that";
-		mes "one has yet to claim lordship";
-		mes "over this stronghold. The one";
-		mes "that breaks the Emperium will";
-		mes "be recognized as its new owner.";
-		close;
-	}
-	else {
-		if (getcharid(2) == .@GID) {
-			mes "[ Ringing Voice ]";
-			mes "Courageous one,";
-			mes "do you wish to return";
-			mes "to your stronghold?";
-			next;
-			switch(select("Return to the Stronghold:Cancel")) {
-			case 1:
-				set .@GID, GetCastleData("schg_cas01",1);
-				if (getcharid(2) == .@GID) {
-					warp "schg_cas01",120,290;
-					end;
-				}
-				close;
-			case 2:
-				close;
-			}
-		}
-		mes "[ Schwaltzvalt Royal Edict ]";
-		mes "The Holy Kingdom of";
-		mes "Schwaltzvalt decrees that";
-		mes "this stronghold is owned";
-		mes "by the ^FF0000" + GetGuildName(.@GID) + "^000000 Guild.";
-		next;
-		mes "[ Schwaltzvalt Royal Edict ]";
-		mes "^FF0000" + GetGuildMaster(.@GID) + "^000000 is";
-		mes "Guild Master of ^FF0000" + GetGuildName(.@GID) + "^000000.";
-		mes "Any that object must claim this";
-		mes "stronghold through strength of";
-		mes "steel and magic during the";
-		mes "appointed Guild Siege times.";
-		close;
-	}
-
-OnRecvCastlesc01:
-	FlagEmblem GetCastleData("schg_cas01",1);
-	end;
-}
-
-sch_gld,297,90,0	duplicate(Sc01_Flag)	Himinn#flag_sc01_2	722

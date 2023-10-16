@@ -275,13 +275,12 @@ function	script	Func_Socket	{
 	switch(select("Attempt Slot Addition:Cancel"))
 	{
 		case 1:
-			// Do the checks after the dialogue to make sure there's no duping
-			mes "[Seiyablem]";
-			mes "Alright then, let the work begin!";
-			mes "You'd better pray for a successful result.";
-			next;
 			if ((Zeny >= getarg(4)*1000) && (countitem(getarg(5)) >= getarg(6)) && (countitem(getarg(7,512)) >= getarg(8,0)) && (countitem(getarg(0)) > 0)) // if there's no getarg(7) and getarg(8) provided, check itemcount against 0 (we still need a valid item ID though)
 			{
+				mes "[Seiyablem]";
+				mes "Alright then, let the work begin!";
+				mes "You'd better pray for a successful result.";
+				next;
 				set .@a, rand(1,100);
 				if ((.@a > getarg(2)) && (.@a < getarg(3)))
 				{

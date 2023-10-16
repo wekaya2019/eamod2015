@@ -272,12 +272,12 @@
 					mes "We don't have time to waste,";
 					mes "so let's get down to business right away.";
 					next;
-					mes "[Leablem]";
-					mes "Shall we start now?";
-					mes "Pray to your gods for good luck.";
-					next;
 					if ((Zeny > 199999999) && (countitem(969) > 1) && (countitem(5022) > 0))
 					{
+						mes "[Leablem]";
+						mes "Shall we start now?";
+						mes "Pray to your gods for good luck.";
+						next;
 						set .@a, rand(1,100);
 						if ((.@a > 4) && (.@a < 95))
 						{
@@ -411,12 +411,12 @@ function	script	Func_Socket2	{
 	switch(select("Ask for slot creation.:Try next time."))
 	{
 		case 1:
-			mes "[Leablem]";
-			mes "Alright then, let the work begin!";
-			mes "You'd better pray for a successful result.";
-			next;
 			if ((Zeny >= getarg(4)*1000) && (countitem(getarg(5)) >= getarg(6)) && (countitem(getarg(7,512)) >= getarg(8,0)) && (countitem(getarg(0)) > 0)) // if there's no getarg(7) and getarg(8) provided, check itemcount against 0 (we still need a valid item ID though)
 			{
+				mes "[Leablem]";
+				mes "Alright then, let the work begin!";
+				mes "You'd better pray for a successful result.";
+				next;
 				set .@a, rand(1,100);
 				if ((.@a > getarg(2)) && (.@a < getarg(3)))
 				{

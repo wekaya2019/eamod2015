@@ -1,0 +1,74 @@
+brasilis,258,60,0	script	School of Fish#1	844,{
+	if (isequipped(2764)) && (isequipped(2775)){
+		specialeffect2 EF_BUBBLE;
+		set .@fcast,15;
+		if (isequipped(2550)) { //Fisher's_Muffler
+			set .@fcast,.@fcast - 3;
+		}
+		if (isequipped(2443)) { //Fish_Shoes
+			set .@fcast,.@fcast - 2;
+		}
+		progressbar "ffffff",.@fcast;
+			if (rand(1,20) == 2) {
+				getitem 6096,1; //Big Fish
+				specialeffect EF_BUBBLE;
+				mapannounce "brasilis","" + strcharinfo(0) + " has caught a Blue Fish!!!",bc_map,"0xff77ff";
+				end;
+			}
+		set .@rhea_ran,rand(1,70);
+		if (.@rhea_ran < 20) {
+			getitem 579,1; //Fresh Fish
+		}
+		else if (.@rhea_ran == 20) {
+			getitem 908,1; //Spawn
+		}
+		else if (.@rhea_ran == 21) {
+			getitem 909,1; //Jellopy
+		}
+		else if (.@rhea_ran == 22) {
+			getitem 963,1; //Sharp_Scale
+		}
+		else if (.@rhea_ran == 23) {
+			getitem 956,1; //Gill
+		}
+		else if (.@rhea_ran == 24) {
+			getitem 6049,1; //Marlin
+		}
+		else if (.@rhea_ran == 25) {
+			getitem 918,1; //Sticky_Webfoot
+		}
+		else if (.@rhea_ran == 26) {
+			getitem 960,1; //Nipper
+		}
+		else if (.@rhea_ran == 27) {
+			getitem 910,1; //Garlet
+		}
+		else if (.@rhea_ran == 28) {
+			getitem 938,1; //Sticky_Mucus
+		}
+		else if ((.@rhea_ran > 28) && (.@rhea_ran < 40)) {
+			getitem 624,1; //Rotten Fish
+		}
+		else {
+			mes "Nothing was caught.";
+			close;
+		}
+		if (rand(1,200) == 3) {
+			getitem 644,1; //Gift_Box
+			mapannounce "brasilis","" + strcharinfo(0) + " has caught a Gift Box!!",bc_map,"0x00ffff";
+		}
+		if (rand(1,500) == 3) {
+			getitem 603,1; //Old_Blue_Box
+			mapannounce "brasilis","" + strcharinfo(0) + " has caught an Old Blue Box!!",bc_map,"0x00ffff";
+		}
+		if (rand(1,3000) == 3) {
+			getitem 617,1; //Old_Violet_Box
+			mapannounce "brasilis","" + strcharinfo(0) + " has caught an Old Purple Box!!",bc_map,"0x44ff44";
+		}
+		end;
+	}
+	else {
+		mes "Fish are swimming in the water.";
+		close;
+	}
+}

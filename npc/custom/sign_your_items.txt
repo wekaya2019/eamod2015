@@ -136,16 +136,6 @@ L_CHECK1:
 	set @ref,0;
 	set @id,getequipid(@part);
 	if(getequipisidentify(@part)) goto L_CHECK2;
-
-	if(!getequipisbounded(@part)) {
-		goto L_CHECK2;
-	}
-
-	else {
-		mes "[Perchik]";
-		mes "I can't sign bound items!";
-		close;
-	}
 	mes "[Perchik]";
 	mes "How could you equip such unknown item?";
 	npctalk "What a sneaky cheater!";

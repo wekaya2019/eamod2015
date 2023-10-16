@@ -3,7 +3,7 @@
 // - NPC in prontera
 // - Removed Duplicates [Silent]
 
-prontera,154,197,3	script	MVP Warper	768,{
+prontera,146,169,3	script	MVP Warper	768,{
 
 	mes "[ ^0065DFMVP Warper^000000 ]";
 	mes "Would you like to go to the MVP Arena ?...";
