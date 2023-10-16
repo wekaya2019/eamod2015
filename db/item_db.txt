@@ -6762,3 +6762,6 @@
 //19506,T_Valkyrie_Feather_Band
 //19507,Clear_Sun
 //19508,T_Gemmed_Sallet
+8965,Blue_Skull,Blue Skull,3,,10,0,,,,,,,,,,,,,{},{},{}
+8966,Red_Skull,Red Skull,3,,10,0,,,,,,,,,,,,,{},{},{}
+8967,Green_Skull,Green Skull,3,,10,0,,,,,,,,,,,,,{},{},{}
