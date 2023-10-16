@@ -1,5 +1,5 @@
-﻿Build started 10/16/2023 5:42:08 PM.
-     1>Project "C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\common_sql.vcxproj" on node 2 (rebuild target(s)).
+﻿Build started 10/16/2023 10:58:46 PM.
+     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql.vcxproj" on node 2 (rebuild target(s)).
      1>InitializeBuildStatus:
          Creating "common_sql\Release\common_sql.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
@@ -7,12 +7,12 @@
          sql.c
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"common_sql\Release\common_sql.lib" libmysql.lib /LIBPATH:..\3rdparty\mysql\win32\lib /NOLOGO /LTCG common_sql\Release\sql.obj
-         common_sql.vcxproj -> C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\common_sql\Release\common_sql.lib
+         common_sql.vcxproj -> C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql\Release\common_sql.lib
        FinalizeBuildStatus:
          Deleting file "common_sql\Release\common_sql.unsuccessfulbuild".
          Touching "common_sql\Release\common_sql.lastbuildstate".
-     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\common_sql.vcxproj" (rebuild target(s)).
+     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql.vcxproj" (rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.59
+Time Elapsed 00:00:01.69
