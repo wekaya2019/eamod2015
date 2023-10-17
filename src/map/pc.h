@@ -445,6 +445,11 @@ struct map_session_data {
 	int Premium_Tick;
 
 	int rental_timer;
+	/**
+	 * Extended Vending system [Lilith]
+	 **/
+	int vend_loot;
+	int vend_lvl;
 
 	// Hunting Missions [Zephyrus]
 	int hunting_time;

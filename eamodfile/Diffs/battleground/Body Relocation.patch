@@ -1,0 +1,72 @@
+Index: src/map/clif.c
+===================================================================
+--- src/map/clif.c	(revision 16540)
++++ src/map/clif.c	(working copy)
+@@ -1243,6 +1243,20 @@
+ }
+ 
+ 
++void clif_bodyrelocation(struct block_list *bl, int x, int y)
++{
++	unsigned char buf[10];
++
++	nullpo_retv(bl);
++
++	WBUFW(buf,0) = 0x8d2;
++	WBUFL(buf,2) = bl->id;
++	WBUFW(buf,6) = x;
++	WBUFW(buf,8) = y;
++	clif_send(buf,packet_len(0x8d2),bl,AREA);
++	return;
++}
++
+ /// Notifies the client of an object's spirits.
+ /// 01d0 <id>.L <amount>.W (ZC_SPIRITS)
+ /// 01e1 <id>.L <amount>.W (ZC_SPIRITS2)
+@@ -16589,10 +16603,10 @@
+ 		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+ 		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+ 	//#0x08C0
+-		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10,
++		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  10,
++		10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,
+ 		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+ 		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+-		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+ 	//#0x0900
+ 		0,  0,  0,  0,  0,  0,  0,  0,  5,  0,  0,  0,  0,  0,  0,  0,
+ 		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+Index: src/map/clif.h
+===================================================================
+--- src/map/clif.h	(revision 16540)
++++ src/map/clif.h	(working copy)
+@@ -31,7 +31,7 @@
+ 
+ enum
+ {// packet DB
+-	MAX_PACKET_DB  = 0xA00,
++	MAX_PACKET_DB  = 0xFFF,
+ 	MAX_PACKET_VER = 30,
+ 	MAX_PACKET_POS = 20,
+ };
+@@ -325,6 +325,7 @@
+ void clif_changemapserver(struct map_session_data* sd, unsigned short map_index, int x, int y, uint32 ip, uint16 port);	//self
+ void clif_blown(struct block_list *bl); // area
+ void clif_slide(struct block_list *bl, int x, int y); // area
++void clif_bodyrelocation(struct block_list *bl, int x, int y);
+ void clif_fixpos(struct block_list *bl);	// area
+ void clif_npcbuysell(struct map_session_data* sd, int id);	//self
+ void clif_buylist(struct map_session_data *sd, struct npc_data *nd);	//self
+Index: src/map/skill.c
+===================================================================
+--- src/map/skill.c	(revision 16540)
++++ src/map/skill.c	(working copy)
+@@ -9544,7 +9544,7 @@
+ 	case MO_BODYRELOCATION:
+ 		if (unit_movepos(src, x, y, 1, 1)) {
+ 			clif_skill_poseffect(src,skillid,skilllv,src->x,src->y,tick);
+-//			clif_slide(src, src->x, src->y); //Poseffect is the one that makes the char snap on the client...
++			clif_bodyrelocation(src,src->x,src->y);
+ 			if (sd) skill_blockpc_start (sd, MO_EXTREMITYFIST, 2000);
+ 		}
+ 		break;

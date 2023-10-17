@@ -8,3 +8,13 @@
 // =====================================================
 // Samples
 // 7773 (to allow open a Vending requesting Valor Badges to exchange items)
+// Specific items for Vending System
+// Format: ItemID
+// Max items is equal MAX_INVENTORY ( 100 by default )
+
+// TCG Card
+7179
+//Extrem Coin
+7711
+//Woe Bdge
+7227

@@ -3801,7 +3801,7 @@
 7224,Stone_Of_Intelligence,Stone of Sage,3,0,,10,,,,,,,,,,,,,{},{},{}
 7225,Pumpkin_Bucket,Pumpkin Lantern,3,486,,10,,,,,,,,,,,,,{},{},{}
 7226,Pill,Pellet,3,2,,10,,,,,,,,,,,,,{},{},{}
-7227,Woe_Badge,Woe Badge,3,0,,10,,,,,,,,,,,,,{},{},{}
+7227,Woe_Badge,Woe Badge,3,0,,0,,,,,,,,,,,,,{},{},{}
 7228,Gold_Bullion,Gold Bullion,3,100000,,300,,,,,,,,,,,,,{},{},{}
 7229,Silver_Bullion,Silver Bullion,3,50000,,300,,,,,,,,,,,,,{},{},{}
 7230,White_Gold_Bullion,Platinum Bullion,3,200000,,300,,,,,,,,,,,,,{},{},{}

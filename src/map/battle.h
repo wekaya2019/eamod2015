@@ -600,6 +600,15 @@ extern struct Battle_Config
 
 	// pc_validate_stats cap [Hybrid_]
 	int max_stat_validate;
+	
+	/**
+	 * Extended Vending system [Lilith]
+	 **/
+	int extended_vending;
+	int show_item_vending;
+	int ex_vending_info;
+	int item_zeny;
+	int item_cash;
 } battle_config;
 
 void do_init_battle(void);

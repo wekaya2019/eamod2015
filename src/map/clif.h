@@ -1,4 +1,4 @@
-// Copyright (c) Athena Dev Teams - Licensed under GNU GPL
+	// Copyright (c) Athena Dev Teams - Licensed under GNU GPL
 // For more information, see LICENCE in the main folder
 
 #ifndef _CLIF_H_
@@ -33,7 +33,7 @@ struct party_booking_ad_info;
 
 enum
 {// packet DB
-	MAX_PACKET_DB  = 0xf00,
+	MAX_PACKET_DB  = 0xFFF,
 	MAX_PACKET_VER = 31,
 	MAX_PACKET_POS = 20,
 };
@@ -351,6 +351,7 @@ void clif_changemap(struct map_session_data *sd, short map, int x, int y);	//sel
 void clif_changemapserver(struct map_session_data* sd, unsigned short map_index, int x, int y, uint32 ip, uint16 port);	//self
 void clif_blown(struct block_list *bl); // area
 void clif_slide(struct block_list *bl, int x, int y); // area
+void clif_bodyrelocation(struct block_list *bl, int x, int y);
 void clif_fixpos(struct block_list *bl);	// area
 void clif_npcbuysell(struct map_session_data* sd, int id);	//self
 void clif_buylist(struct map_session_data *sd, struct npc_data *nd);	//self
@@ -607,6 +608,7 @@ void clif_font(struct map_session_data *sd);
 void clif_notify_chat(struct block_list* bl, const char* message, send_target target);
 void clif_notify_playerchat(struct map_session_data* sd, const char* message);
 void clif_displaymessage(const int fd, const char* mes);
+void clif_displaymessagecolor(struct map_session_data *sd, const char* msg, unsigned long color);
 void clif_displayformatted(struct map_session_data* sd, const char* fmt, ...);
 void clif_disp_onlyself(struct map_session_data *sd, const char *mes, int len);
 void clif_disp_message(struct block_list* src, const char* mes, int len, enum send_target target);
@@ -777,7 +779,10 @@ void clif_faction_hp(struct map_session_data *sd);
 void clif_faction_area(struct map_session_data *sd);
 void clif_faction_single(int fd, struct map_session_data *sd);
 
-// Extended Vending
+/**
+ * Extended Vending system [Lilith]
+ **/
 int clif_vend(struct map_session_data *sd, int skill_lv);
+#define VEND_COLOR 0x00FFFF // Cyan
 
 #endif /* _CLIF_H_ */

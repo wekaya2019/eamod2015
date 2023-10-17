@@ -98,7 +98,10 @@ struct item_group {
 	int nameid[MAX_RANDITEM];
 	int qty; //Counts amount of items in the group.
 };
-
+struct s_item_vend{
+	int itemid;
+};
+struct s_item_vend item_vend[MAX_INVENTORY];
 struct item_data* itemdb_searchname(const char *name);
 int itemdb_searchname_array(struct item_data** data, int size, const char *str);
 struct item_data* itemdb_load(int nameid);
@@ -158,5 +161,11 @@ extern int coins_db[MAX_COIN_DB];
 
 void do_final_itemdb(void);
 int do_init_itemdb(void);
+
+/**
+ * Extended Vending system [Lilith]
+ **/
+#define ITEMID_ZENY battle_config.item_zeny
+#define ITEMID_CASH battle_config.item_cash
 
 #endif /* _ITEMDB_H_ */
