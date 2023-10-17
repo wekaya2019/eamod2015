@@ -1,4 +1,4 @@
-﻿Build started 10/17/2023 4:43:53 PM.
+﻿Build started 10/18/2023 12:06:59 AM.
      1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\char-server_sql.vcxproj" on node 3 (rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "char-server_sql\Release\char-server_sql.lastbuildstate".
@@ -45,4 +45,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:15.24
+Time Elapsed 00:00:13.79

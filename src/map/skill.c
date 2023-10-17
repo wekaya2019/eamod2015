@@ -6581,7 +6581,7 @@ int skill_castend_pos2(struct block_list* src, int x, int y, int skillid, int sk
 	case MO_BODYRELOCATION:
 		if (unit_movepos(src, x, y, 1, 1)) {
 			clif_skill_poseffect(src,skillid,skilllv,src->x,src->y,tick);
-//			clif_slide(src, src->x, src->y); //Poseffect is the one that makes the char snap on the client...
+			clif_bodyrelocation(src,src->x,src->y);
 			if (sd) skill_blockpc_start (sd, MO_EXTREMITYFIST, 2000);
 		}
 		break;
