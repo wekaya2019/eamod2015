@@ -1,4 +1,4 @@
-﻿Build started 10/17/2023 4:17:10 PM.
+﻿Build started 10/17/2023 4:43:53 PM.
      1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\login-server_sql.vcxproj" on node 2 (rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "login-server_sql\Release\login-server_sql.lastbuildstate".
@@ -29,4 +29,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:19.41
+Time Elapsed 00:00:10.23
