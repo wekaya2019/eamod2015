@@ -1,8 +1,6 @@
-﻿Build started 10/19/2023 7:17:53 AM.
-     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql.vcxproj" on node 2 (rebuild target(s)).
-     1>_PrepareForClean:
-         Deleting file "common_sql\Release\common_sql.lastbuildstate".
-       InitializeBuildStatus:
+﻿Build started 10/20/2023 8:07:17 AM.
+     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
          Creating "common_sql\Release\common_sql.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\src\common /I..\3rdparty\msinttypes\include /I..\3rdparty\mysql\win32\include /Zi /nologo /W3 /WX- /MP /O2 /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D FD_SETSIZE=4096 /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"common_sql\Release\\" /Fd"common_sql\Release\vc100.pdb" /Gd /TC /wd4996 /FIconfig.vc.h /analyze- /errorReport:prompt ..\src\common\sql.c
@@ -13,8 +11,8 @@
        FinalizeBuildStatus:
          Deleting file "common_sql\Release\common_sql.unsuccessfulbuild".
          Touching "common_sql\Release\common_sql.lastbuildstate".
-     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql.vcxproj" (rebuild target(s)).
+     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.73
+Time Elapsed 00:00:01.96

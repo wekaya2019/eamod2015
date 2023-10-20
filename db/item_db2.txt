@@ -367,8 +367,7 @@
 20733,Reinforced_Parts_Engine,Reinforced Parts - Engine,4,10,,1500,,25,,,0x00000400,56,2,4,,100,1,,{ bonus bDelayrate,-10; if(getrefine()>=7) {bonus2 bSubEle,0,10;}; if(getrefine()>=9) {bonus bDelayrate,-10;} },{},{}
 20737,C_Kirin_Wing,C Kirin Wing,4,10,,0,,,,0,0xFFFFFFFF,63,2,1024,,1,1,,{},{},{}
 
-19000,Assasin_Suit,Assasin Suit,5,89000,,500,,4,,2,0xFFFFFFFE,7,2,16384,,10,1,0,{ changebase 12; },{},{ changebase Class; }
-
+19000,Assasin_Suit,Assasin Suit,5,89000,,500,,4,,2,0xFFFFFFFE,7,2,16,,10,1,0,{ changebase 12; },{},{ changebase Class; }
 19001,Cross_Suit,Assasin Cross Suit,5,89000,,500,,4,,2,0xFFFFFFFE,7,2,16384,,10,1,0,{ changebase 4013; },{},{ changebase Class; }
 
 19002,Priest_Suit,Priest Suit,5,89000,,500,,4,,2,0xFFFFFFFE,7,2,16384,,10,1,0,{ changebase 8;},{},{ changebase Class; }

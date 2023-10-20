@@ -6990,8 +6990,8 @@
 30601,diamond_dust,_Diamond_dust,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
 
 //Special  bAddRTalismans
-30377,Charm,Charm,3,0,,0,,,,,,,,,,,,,{ bonus bAllstats,+10; },{},{}
-30378,Talisman,Talisman:_HP+500,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
+30377,Charm,Charm,12,50,,0,,,,,0xFFFFFFFF,15,2,,,60,,,{ bonus bAllStats,100; },{},{}
+30378,Talisman,Talisman:_HP+500,12,50,,0,,,,,0xFFFFFFFF,15,2,,,60,,,{ bonus bAllStats,100; },{},{}
 30379,Talisman:_Flee+5,Talisman:_Flee+5,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
 30380,Talisman:_Flee+10,Talisman:_Flee+10,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
 30381,Talisman:_Aspd+10,Aspd+10,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
