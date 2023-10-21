@@ -10,7 +10,7 @@
 // to enable it, add the Ancient WoE scripts to your server.
 // ==============================================================
 
-prontera,164,174,3	script	WoE Info Board	837,{
+prontera,146,164,3	script	WoE Info Board	837,{
 	if( .Ready != 1 ) donpcevent "WoE Info Board::OnInit";
 
 	mes "[^FFA500 WoE Info Board ^000000]";

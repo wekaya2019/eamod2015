@@ -6771,14 +6771,15 @@
 11516,Acai_Fruit,Acai Fruit,0,15,7,12,,,,,0xFFFFFFFF,7,2,,,,,,{ itemheal rand(15,95),0; },{},{}
 
 //Bloody Yasha Set
-30517,sahkmet_ears,Bloody_Yasha_Ears,5,20,,600,,2,,1,0xFFFFFFFF,63,2,256,,1,1,1822,{ bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus bCastrate,4; bonus bMaxHPrate,3; bonus bIntravision,0; },{},{}
-30518,sahkmet_taurus,Bloody_Yasha_Taurus,5,20,,600,,2,,1,0xFFFFFFFF,63,2,512,,1,1,1823,{ bonus2 bSubRace,7,2; bonus bMaxHP,3; bonus bMaxSP,2; bonus2 bAddRace,7,3; bonus2 bMagicAddRace,7,3; },{},{}
-30519,sahkmet_wings,Bloody_Yasha_Wings,5,20,,600,,2,,1,0xFFFFFFFF,63,2,001,,1,1,1824,{ bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus2 bSubRace,7,2; bonus bMaxHPrate,5; bonus bAllStats,1; bonus bCastrate,2; bonus2 bAddEff,Eff_Curse,500; bonus2 bAddEff,Eff_Stone,500; bonus2 bSubEle,1,1; bonus2 bSubEle,2,1; bonus2 bSubEle,3,1; bonus2 bSubEle,4,1; bonus2 bSubEle,5,1; bonus2 bSubEle,6,1; bonus2 bSubEle,7,1; bonus2 bSubEle,8,1; bonus2 bSubEle,9,1; },{},{}
+30517,sahkmet_ears,Bloody_Yasha_Ears,5,20,,600,,2,,1,0xFFFFFFFF,63,2,1024,,1,1,1822,{ bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus bCastrate,4; bonus bMaxHPrate,3; bonus bIntravision,0; },{},{}
+30518,sahkmet_taurus,Bloody_Yasha_Taurus,5,20,,600,,2,,1,0xFFFFFFFF,63,2,2048,,1,1,1823,{ bonus2 bSubRace,7,2; bonus bMaxHP,3; bonus bMaxSP,2; bonus2 bAddRace,7,3; bonus2 bMagicAddRace,7,3; },{},{}
+30519,sahkmet_wings,Bloody_Yasha_Wings,5,20,,600,,2,,1,0xFFFFFFFF,63,2,4096,,1,1,1824,{ bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus2 bSubRace,7,2; bonus bMaxHPrate,5; bonus bAllStats,1; bonus bCastrate,2; bonus2 bAddEff,Eff_Curse,500; bonus2 bAddEff,Eff_Stone,500; bonus2 bSubEle,1,1; bonus2 bSubEle,2,1; bonus2 bSubEle,3,1; bonus2 bSubEle,4,1; bonus2 bSubEle,5,1; bonus2 bSubEle,6,1; bonus2 bSubEle,7,1; bonus2 bSubEle,8,1; bonus2 bSubEle,9,1; },{},{}
 
 //Saiyan
-30328,Archangel_Wings,Archangel Wing,5,20,,600,,2,,1,0xFFFFFFFF,63,2,001,,1,1,1717,{ bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus bCastrate,4; bonus bMaxHPrate,3; },{},{}
-30341,Dark_Archangel_Wings,Dark_Archangel_Wings,5,20,,600,,2,,1,0xFFFFFFFF,63,2,001,,1,1,1718,{ bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus bCastrate,4; bonus bMaxHPrate,3; },{},{}
+30328,Archangel_Wings,Archangel Wing,5,20,,600,,2,,1,0xFFFFFFFF,63,2,4096,,1,1,1717,{ bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus bCastrate,4; bonus bMaxHPrate,3; },{},{}
+30341,Dark_Archangel_Wings,Dark_Archangel_Wings,5,20,,600,,2,,1,0xFFFFFFFF,63,2,4096,,1,1,1718,{ bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus bCastrate,4; bonus bMaxHPrate,3; },{},{}
 30342,saiyan,Saiyan_Hair,5,20,,600,,2,,1,0xFFFFFFFF,63,2,1024,,1,1,1719,{  bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus bMaxHPrate,3; bonus2 bAddEff,Eff_Sleep,500; },{},{}
+30401,Golden_Archangel_Wings,Golden_Archangel_Wings,5,20,,600,,2,,1,0xFFFFFFFF,63,2,4096,,1,1,1750,{bonus bAllstats,+10;},{},{}
 
 //lucky Egg
 30483,Lucky_Egg,Lucky_Egg,2,1000,,200,,,,,0xFFFFFFFF,7,2,,,,,,{ getitem groupranditem(IG_GiftBox),1; },{},{}
@@ -6944,7 +6945,6 @@
 30459,Jzone's_Glasses,Jzone's_Glasses,5,20,,600,,2,,1,0xFFFFFFFF,7,2,2048,,1,1,1780,{bonus bAllstats,+10;},{},{}
 30460,Jzone's_Scarf,Jzone's_Scarf,5,20,,600,,2,,1,0xFFFFFFFF,7,2,4096,,1,1,1781,{bonus bAllstats,+10;},{},{}
 30461,Diurnal's_Aura,Diurnal's_Aura,5,20,,600,,2,,1,0xFFFFFFFF,7,2,4096,,1,1,1782,{bonus bAllstats,+10;},{},{}
-30401,Golden_Archangel_Wings,Golden_Archangel_Wings,5,20,,600,,2,,1,0xFFFFFFFF,63,2,4096,,1,1,1750,{bonus bAllstats,+10;},{},{}
 
 //Super Quest
 30463,modernindianhat,Modern_Indian_Hat,5,20,,600,,2,,1,0xFFFFFFFF,63,2,256,,1,1,1783,{ bonus5 bAutoSpellWhenHit,1,326,1000,BF_SHORT,1; },{},{}
@@ -6990,8 +6990,8 @@
 30601,diamond_dust,_Diamond_dust,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
 
 //Special  bAddRTalismans
-30377,Charm,Charm,12,50,,0,,,,,0xFFFFFFFF,15,2,,,60,,,{ bonus bAllStats,100; },{},{}
-30378,Talisman,Talisman:_HP+500,12,50,,0,,,,,0xFFFFFFFF,15,2,,,60,,,{ bonus bAllStats,100; },{},{}
+//30377,Charm,Charm,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
+30378,Talisman,Talisman:_HP+500,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
 30379,Talisman:_Flee+5,Talisman:_Flee+5,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
 30380,Talisman:_Flee+10,Talisman:_Flee+10,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
 30381,Talisman:_Aspd+10,Aspd+10,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
@@ -7057,3 +7057,18 @@
 30359,rinnegan,Rinnegan,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1735,{ bonus bCastrate,-10; bonus bDex,1; },{},{}
 30360,sharingan,Sharingan,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1736,{ bonus bCastrate,-10; bonus bAgi,1; },{},{}
 30361,shinigami,Shinigami,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1737,{ bonus bCastrate,-10; bonus bInt,1; },{},{}
+
+19046,Baby_Wizard_Suit,Baby Wizard Suit,5,89000,,500,,4,,2,0x00000200,7,2,8192,,10,1,0,{ changebase 4032; },{},{ changebase Class; }
+19047,Baby_Blacksmith_Suit,Baby Blacksmith Suit,5,20,,600,,2,,1,0x00000400,63,2,8192,,1,1,1650,{ changebase 4033; },{},{ changebase Class; }
+19048,Baby_Hunter_Suit,Baby Hunter Suit,5,89000,,500,,4,,2,0x00000800,7,2,8192,,10,1,0,{ changebase 4034; },{},{ changebase Class; }
+19049,Baby_Assassin_Suit,Baby Assassin Suit,5,89000,,500,,4,,2,0x00001000,7,2,8192,,10,1,0,{ changebase 4035; },{},{ changebase Class; }
+19050,Baby_Crusader_Suit,Baby Crusader Suit,5,89000,,500,,4,,2,0x00001000,7,2,8192,,10,1,0,{ changebase 4037; },{},{ changebase Class; }
+19051,Baby_Monk_Suit,Baby Monk Suit,5,89000,,500,,4,,2,0x00008000,7,2,8192,,10,1,0,{ changebase 4038; },{},{ changebase Class; }
+19052,Baby_Sage_Suit,Baby Sage Suit,5,89000,,500,,4,,2,0x00010000,7,2,8192,,10,1,0,{ changebase 4039; },{},{ changebase Class; }
+19053,Baby_Rogue_Suit,Baby Rogue Suit,5,89000,,500,,4,,2,0x00020000,7,2,8192,,10,1,0,{ changebase 4040; },{},{ changebase Class; }
+19054,Baby_Alchemist_Suit,Baby Alchemist Suit,5,89000,,500,,4,,2,0x00040000,7,2,8192,,10,1,0,{ changebase 4041; },{},{ changebase Class; }
+19055,Baby_Bard_Suit,BabyBard Suit,5,89000,,500,,4,,2,0x00080000,7,2,8192,,10,1,0,{ changebase 4042; },{},{ changebase Class; }
+//19056,Baby_Dancer_Suit,Baby Dancer Suit,5,89000,,500,,4,,2,0x00080000,7,2,8192,,10,1,0,{ changebase 4043; },{},{ changebase Class; }
+19057,Baby_Super_Novice_Suit,Baby Super Novice Suit,5,89000,,500,,4,,2,0xFFFFFFFE,7,2,8192,,10,1,0,{ changebase 4045; },{},{ changebase Class; }
+19044,Baby_Knight_Suit,Baby Knight Suit,4,20,,1000,155,,1,0,0x00004082,7,2,8192,4,48,1,3,{ changebase 4030; },{},{ changebase Class; }
+//19015,Prof_Suit,Professor Suit,5,89000,,500,,4,,2,0xFFFFFFFE,7,2,16,,10,1,0,{ changebase 4017; },{},{

@@ -3,7 +3,7 @@
 
 // Starting Class Selection NPC
 
-new_1-1,65,115,0	script	ZaftRO Staff#job1	831,{
+new_1-1,65,115,3	script	ZaftRO Staff#job1	831,{
 	mes "[^FFA500Chronos Girl^000000]";
 	mes "Hi!, Welcome to Chronos, " + strcharinfo(0) + ".";
 	mes "I am Chronos Girl, nice to meet you.";

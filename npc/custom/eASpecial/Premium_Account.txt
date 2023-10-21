@@ -25,7 +25,7 @@
 // To enable @go to Premium Account just do this:
 // go: 40,80,1
 
-prontera,145,171,5	script	Premium Account	864,{
+new_1-2,170,185,5	script	Premium Account	864,{
 	// Settings: -----------------------------
 	set .@Cost, 10000; // Cash Points required
 	set .@Time, 4 * 7 * 24 * 60 * 60; // Time in Seconds = 4 weeks, 7 days per week, 24 hours per day, 60 minutes per day, 60 seconds per minute. = 1 month in this sample.
