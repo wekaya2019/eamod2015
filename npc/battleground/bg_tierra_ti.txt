@@ -106,7 +106,7 @@ OnReady:
 OnValidateScore:
 	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Tierra_TI" )
 		end;
-	if( .Team1_Score >= 80 || .Team2_Score >= 80 || .Team3_Score >= 80 )
+	if( .Team1_Score >= 10 || .Team2_Score >= 10 || .Team3_Score >= 10 )
 		donpcevent "Tierra_TI::OnMatchEnd";
 	end;
 
@@ -194,10 +194,10 @@ OnTouch:
 		emotion e_no1,1;
 		specialeffect 622;
 		set .@Score, getvariableofnpc(.Team1_Score,"Tierra_TI") + .@Points;
-		if( .@Score > 80 ) set .@Score, 80;
+		if( .@Score > 10 ) set .@Score, 10;
 		set getvariableofnpc(.Team1_Score,"Tierra_TI"),.@Score;
 		bg_team_updatescore $@BG_Team1,.@Score;
-		mapannounce "region_8",bg_get_data($@BG_Team1,2) + " : " + .@Points + " slaughtered skulls by " + strcharinfo(0) + " [" + .@Score + "/80]",1,bg_get_data($@BG_Team1,4);
+		mapannounce "region_8",bg_get_data($@BG_Team1,2) + " : " + .@Points + " slaughtered skulls by " + strcharinfo(0) + " [" + .@Score + "/10]",1,bg_get_data($@BG_Team1,4);
 		bg_rankpoints "skulls",.@Points;
 		donpcevent "Tierra_TI::OnValidateScore";
 	}
@@ -234,10 +234,10 @@ OnTouch:
 		emotion e_no1,1;
 		specialeffect 622;
 		set .@Score, getvariableofnpc(.Team2_Score,"Tierra_TI") + .@Points;
-		if( .@Score > 80 ) set .@Score, 80;
+		if( .@Score > 10 ) set .@Score, 10;
 		set getvariableofnpc(.Team2_Score,"Tierra_TI"),.@Score;
 		bg_team_updatescore $@BG_Team2,.@Score;
-		mapannounce "region_8",bg_get_data($@BG_Team2,2) + " : " + .@Points + " slaughtered skulls by " + strcharinfo(0) + " [" + .@Score + "/80]",1,bg_get_data($@BG_Team2,4);
+		mapannounce "region_8",bg_get_data($@BG_Team2,2) + " : " + .@Points + " slaughtered skulls by " + strcharinfo(0) + " [" + .@Score + "/10]",1,bg_get_data($@BG_Team2,4);
 		bg_rankpoints "skulls",.@Points;
 		donpcevent "Tierra_TI::OnValidateScore";
 	}
@@ -274,10 +274,10 @@ OnTouch:
 		emotion e_no1,1;
 		specialeffect 622;
 		set .@Score, getvariableofnpc(.Team3_Score,"Tierra_TI") + .@Points;
-		if( .@Score > 80 ) set .@Score, 80;
+		if( .@Score > 10 ) set .@Score, 10;
 		set getvariableofnpc(.Team3_Score,"Tierra_TI"),.@Score;
 		bg_team_updatescore $@BG_Team3,.@Score;
-		mapannounce "region_8",bg_get_data($@BG_Team3,2) + " : " + .@Points + " slaughtered skulls by " + strcharinfo(0) + " [" + .@Score + "/80]",1,bg_get_data($@BG_Team3,4);
+		mapannounce "region_8",bg_get_data($@BG_Team3,2) + " : " + .@Points + " slaughtered skulls by " + strcharinfo(0) + " [" + .@Score + "/10]",1,bg_get_data($@BG_Team3,4);
 		bg_rankpoints "skulls",.@Points;
 		donpcevent "Tierra_TI::OnValidateScore";
 	}
@@ -289,7 +289,7 @@ region_8,55,71,0	duplicate(GreenTotem)	Sacrifice Totem#3	111,2,2
 // MapFlags
 // *********************************************************************
 
-region_8	mapflag	bg_topscore	80
+region_8	mapflag	bg_topscore	10
 region_8	mapflag	battleground	3
 region_8	mapflag	nomemo
 region_8	mapflag	nosave	SavePoint

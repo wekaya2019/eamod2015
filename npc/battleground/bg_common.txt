@@ -24,17 +24,22 @@ OnInit:
 	// Configuration
 	// *****************************************************
 	// Battleground Rotation - Main NPC name
-	setarray .BG_Arenas$[0],	     "Flavius_CTF",  "Tierra_EOS",     "Tierra_TI",     "Flavius_TD","Tierra_Boss","Conquest",   "Flavius_SC","Tierra_DOM",    "Rush";
+	setarray .BG_Arenas$[0],		"Flavius_CTF",		"Flavius_TD",			"Conquest",		"Rush",		"Tierra_TI",			"Tierra_EOS",		"Tierra_DOM",		"Tierra_Boss",	"Flavius_SC";
 	// Battleground Arena Name - for announcements
-	setarray .BG_Names$[0],		"Capture the Flag","Eye of Storm","Triple Inferno","Team DeathMatch",    "Bossnia","Conquest","Stone Control","Domination",    "Rush";
+	setarray .BG_Names$[0],		"Capture the Flag",	"Team DeathMatch",		"Conquest",		"Rush",		"Triple Inferno",		"Eye of Storm",		"Domination",		"Bossnia",		"Stone Control";
 	// Minimum Players to start the BG
-	setarray .BG_Min[0],	                         1,             1,               1,                1,            1,        1,              1,           1,        1;
+	setarray .BG_Min[0],	              1,               1,                1,            1,            1,                  1,             1,             1,          1;
 	// Maximum Players per Team
-	setarray .BG_Max[0],	                        14,            14,              14,               14,           14,        3,             5,          14,        14;
+	setarray .BG_Max[0],	             50,              50,               50,           50,           50,                  50,            50,           50,          50;
 	// BG Message Colors
-	setarray .BG_Color$[0],	                "0xA0522D",    "0x4169E1",      "0x696969",       "0x808000",   "0x483D8B","0xFFA500",     "0x9ACD32",  "0x4169E1","0xDDA0DD";
-	// Team Building Mode : 0 = Lineal | 1 = Random | 2 = Class Priority
-	set .TeamMode, 0;
+	setarray .BG_Color$[0],	                "0xA0522D",    "0x808000",      "0xFFA500",       "0xDDA0DD",		"0x696969",		"0x4169E1",		"0x4169E1",		"0x3399FF",		"0x9ACD32";
+	setarray .BG_Color2[0],	                0xA0522D,    0x808000,      0xFFA500,       0xDDA0DD,		0x696969,		0x4169E1,		0x4169E1,		0x3399FF,		0x9ACD32;
+	// Team Building Mode : 0 = Lineal | 1 = Random | 2 = Class Priority | 3 = Faction Mode | 4 = Team Color (by script set Bat_Team,N;)
+	set .TeamMode, 2;
+	// Happy Hour - 1: Enabled | 0: Disabled
+	set .HappyHour, 1; 
+	// Happy Hour - Reward rates %
+	set .HappyHourRates, 100 + 20; // +20%
 	// Main Code
 	// *****************************************************
 	set .BG_Count, getarraysize(.BG_Arenas$);

@@ -53,8 +53,8 @@ OnReady:
 		end;
 
 	initnpctimer;
-	set .Team1_Score, 99;
-	set .Team2_Score, 99;
+	set .Team1_Score, 5;
+	set .Team2_Score, 5;
 	bg_updatescore "bat_b03",.Team1_Score,.Team2_Score;
 	sleep 2000;
 	bg_warp $@BG_Team1,"bat_b03",328,150;
@@ -88,14 +88,14 @@ OnValidateScore:
 	}
 	else if( .@Team2Count == 0 )
 	{ // All Team 2 Players quit
-		set .@Rate, 99 - .Team2_Score;
-		bg_reward $@BG_Team1,7829,30 * .@Rate / 99,0,0,"BG_TDM",1,4,0;
+		set .@Rate, 5 - .Team2_Score;
+		bg_reward $@BG_Team1,7829,30 * .@Rate / 5,0,0,"BG_TDM",1,4,0;
 		mapannounce "bat_b03","The " + bg_get_data($@BG_Team1,2) + " army has won the Battle of Flavius TD!",1,bg_get_data($@BG_Team1,4);
 	}
 	else if( .@Team1Count == 0 )
 	{ // All Team 1 Players quit
-		set .@Rate, 99 - .Team1_Score;
-		bg_reward $@BG_Team2,7829,30 * .@Rate / 99,0,0,"BG_TDM",1,4,0;
+		set .@Rate, 5 - .Team1_Score;
+		bg_reward $@BG_Team2,7829,30 * .@Rate / 5,0,0,"BG_TDM",1,4,0;
 		mapannounce "bat_b03","The " + bg_get_data($@BG_Team2,2) + " army has won the Battle of Flavius TD!",1,bg_get_data($@BG_Team2,4);
 	}
 	else end;
@@ -137,11 +137,11 @@ OnMatchEnd:
 	donpcevent "#guitd_respawn::OnBGStop";
 	donpcevent "#crotd_respawn::OnBGStop";
 	set $@BG_Status, 2;
-	set .Team1_Score, 99;
-	set .Team2_Score, 99;
+	set .Team1_Score, 5;
+	set .Team2_Score, 5;
 	sleep 5000;
 	donpcevent "BG_Queue_Join::OnRotate";
-	bg_updatescore "bat_b03",99,99;
+	bg_updatescore "bat_b03",5,5;
 	end;
 }
 

@@ -121,14 +121,14 @@ OnCScore:
 	end;
 
 OnValidateScore:
-	if( .Team1_Score > 99 )
-		set .Team1_Score, 99;
-	if( .Team2_Score > 99 )
-		set .Team2_Score, 99;
+	if( .Team1_Score > 10 )
+		set .Team1_Score, 10;
+	if( .Team2_Score > 10 )
+		set .Team2_Score, 10;
 
 	bg_updatescore "bat_a04",.Team1_Score,.Team2_Score; // Update Visual Score
 
-	if( .Team1_Score < 99 && .Team2_Score < 99 )
+	if( .Team1_Score < 10 && .Team2_Score < 10 )
 		end; // No winners
 
 	stopnpctimer "Dom_N_Base";
@@ -140,19 +140,19 @@ OnValidateScore:
 	// =======================================================
 	// Team Rewards
 	// =======================================================
-	if( .Team1_Score >= 99 && .Team2_Score >= 99 )
+	if( .Team1_Score >= 10 && .Team2_Score >= 10 )
 	{ // Tie
 		bg_reward $@BG_Team1,7828,15,0,0,"BG_DOM",1,8,1;
 		bg_reward $@BG_Team2,7828,15,0,0,"BG_DOM",1,8,1;
 		mapannounce "bat_a04","The battle is over. This is a Tie...!",1,0x4169E1;
 	}
-	else if( .Team1_Score >= 99 )
+	else if( .Team1_Score >= 10 )
 	{ // Team 1 Won
 		bg_reward $@BG_Team1,7828,30,0,0,"BG_DOM",1,8,0;
 		bg_reward $@BG_Team2,7828,15,0,0,"BG_DOM",1,8,2;
 		mapannounce "bat_a04","The " + bg_get_data($@BG_Team1,2) + " army has won the Battle of Tierra Domination!",1,bg_get_data($@BG_Team1,4);
 	}
-	else if( .Team2_Score >= 99 )
+	else if( .Team2_Score >= 10 )
 	{ // Team 2 Won
 		bg_reward $@BG_Team1,7828,15,0,0,"BG_DOM",1,8,2;
 		bg_reward $@BG_Team2,7828,30,0,0,"BG_DOM",1,8,0;

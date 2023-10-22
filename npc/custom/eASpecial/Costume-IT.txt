@@ -10,7 +10,7 @@
 // --------------------------------------------------------------------------
 
 prontera,164,167,4	Script	Costume-IT#1	864,{
-	mes "[Costume-IT]";
+	mes "[5ostume-IT]";
 	mes "Hello and welcome to the Costume-IT service.";
 	mes "Here you can convert your headgears into a Costume Headgear.";
 	next;
