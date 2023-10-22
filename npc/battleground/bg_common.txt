@@ -26,7 +26,7 @@ OnInit:
 	// Battleground Rotation - Main NPC name
 	setarray .BG_Arenas$[0],		"Flavius_CTF",		"Flavius_TD",			"Conquest",		"Rush",		"Tierra_TI",			"Tierra_EOS",		"Tierra_DOM",		"Tierra_Boss",	"Flavius_SC";
 	// Battleground Arena Name - for announcements
-	setarray .BG_Names$[0],		"Capture the Flag",	"Team DeathMatch",		"Conquest",		"Rush",		"Triple Inferno",		"Eye of Storm",		"Domination",		"Bossnia",		"Stone Control";
+	setarray .BG_Names$[0],		"Capture the Flag",	"Team DeathMatch",		"Conquest",		"Rush",		"Triple Inferno",		"Eye of Storm",		"Domination",		"Tierra Bossnia",		"Stone Control";
 	// Minimum Players to start the BG
 	setarray .BG_Min[0],	              1,               1,                1,            1,            1,                  1,             1,             1,          1;
 	// Maximum Players per Team

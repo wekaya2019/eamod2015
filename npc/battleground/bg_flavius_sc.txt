@@ -1,29 +1,17 @@
+// (c) 2008 - 2012 eAmod Project; Andres Garbanzo / Zephyrus
+//
+//  - gaiaro.staff@yahoo.com
+//  - MSN andresjgm.cr@hotmail.com
+//  - Skype: Zephyrus_cr
+//  - Site: http://dev.terra-gaming.com
+//
+// This file is NOT public - you are not allowed to distribute it.
+// Authorized Server List : http://dev.terra-gaming.com/index.php?/topic/72-authorized-eamod-servers/
+// eAmod is a non Free, extended version of eAthena Ragnarok Private Server.
+
 // ==============================================================================
 // BattleGround System - Flavius Stone Control
 // ==============================================================================
-
-// Registration NPC's
-// *********************************************************************
-
-//prontera,150,146,0	script	Registration::SCR_Guillaume	418,{
-	end;
-OnInit:
-	waitingroom "Flaviius GVG",1,"Flavius_SC::OnGuillaumeJoin",1;
-	end;
-OnEnterBG:
-	set $@FlaviusSC_id1, waitingroom2bg("bat_b04",390,10,0,"Flavius_SC::OnGuillaumeQuit","Flavius_SC::OnGuillaumeDie");
-	end;
-}
-
-//prontera,163,147,4	script	Registration::SCR_Croix	414,{
-	end;
-OnInit:
-	waitingroom "Flaviius GVG",1,"Flavius_SC::OnCroixJoin",1;
-	end;
-OnEnterBG:
-	set $@FlaviusSC_id2, waitingroom2bg("bat_b04",10,290,1,"Flavius_SC::OnCroixQuit","Flavius_SC::OnCroixDie");
-	end;
-}
 
 // Battleground Engine
 // *********************************************************************
@@ -31,22 +19,22 @@ OnEnterBG:
 -	script	Flavius_SC	-1,{
 	end;
 
-OnGuillaumeQuit:
-OnCroixQuit:
+OnTeam1Quit:
+OnTeam2Quit:
 	setquest 8506; // Deserter
 	set @killer_bg_src,0;
-	if( $@FlaviusSC != 0 )
-		donpcevent "Flavius_SC::OnDoBalance";
-OnGuillaumeDie:
-OnCroixDie:
-	if( $@FlaviusSC == 1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	if( $@BG_Status != 0 && getvariableofnpc(.BG_Arena$,"BG_Queue_Join") == "Flavius_SC" )
+		donpcevent "BG_Queue_Join::OnJoinEvent";
+OnTeam1Die:
+OnTeam2Die:
+	if( $@BG_Status == 1 && getvariableofnpc(.BG_Arena$,"BG_Queue_Join") == "Flavius_SC" && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Stone Carrier
 		set .Stone[.@Stone],0;
 		getmapxy .@m$, .@x, .@y, 0;
 		movenpc "Neutral Stone#" + .@Stone, .@x, .@y;
 		mapannounce "bat_b04","Neutral Stone Droped by [ " + strcharinfo(0) + " ]",1,0xFFFFFF;
-//		bg_rankpoints "sc_droped",1;
-//		bg_rankpoints "fame",1,@killer_bg_src;
+		bg_rankpoints "sc_droped",1;
+		bg_rankpoints "fame",1,@killer_bg_src;
 		initnpctimer "Neutral Stone#" + .@Stone;
 		deltimer "Flavius_SC::OnFlash";
 		pcblock 1,0;
@@ -54,110 +42,53 @@ OnCroixDie:
 	}
 	end;
 
-OnGuillaumeJoin:
-OnCroixJoin:
-	if( $@FlaviusSC == 0 )
-		donpcevent "Flavius_SC::OnReadyCheck";
-	else
-		donpcevent "Flavius_SC::OnDoBalance";
+OnBuildTeams:
+	set $@BG_Team1,bg_team_create("bat_b04",390,10,0,"Flavius_SC::OnTeam1Quit","Flavius_SC::OnTeam1Die");
+	set $@BG_Team2,bg_team_create("bat_b04",10,290,1,"Flavius_SC::OnTeam2Quit","Flavius_SC::OnTeam2Die");
 	end;
 
-OnDoBalance:
-	if( $@FlaviusSC != 1 )
+OnReady:
+	if( getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" )
 		end;
 
-	set .@Guillaume, bg_get_data($@FlaviusSC_id1, 0);
-	set .@Croix, bg_get_data($@FlaviusSC_id2, 0);
-
-	if( .@Guillaume < .@Croix )
-		waitingroom2bg_single $@FlaviusSC_id1,"bat_b04",311,224,"SCR_Guillaume";
-	else if( .@Guillaume > .@Croix )
-		waitingroom2bg_single $@FlaviusSC_id2,"bat_b04",87,75,"SCR_Croix";
-	else
-	{
-		set .@GuillaumeR, getwaitingroomstate(0,"SCR_Guillaume");
-		set .@CroixR, getwaitingroomstate(0,"SCR_Croix");
-
-		if( .@GuillaumeR <= .@CroixR )
-			set .@Limit, .@GuillaumeR;
-		else
-			set .@Limit, .@CroixR;
-
-		if( .@Limit + .@Guillaume > 35 )
-			set .@Limit, 35 - .@Guillaume;
-		if( .@Limit <= 0 ) end;
-
-		for( set .@i, 0; .@i < .@Limit; set .@i, .@i + 1 )
-		{
-			waitingroom2bg_single $@FlaviusSC_id1,"bat_b04",311,224,"SCR_Guillaume";
-			waitingroom2bg_single $@FlaviusSC_id2,"bat_b04",87,75,"SCR_Croix";
-		}
-
-		set .@GC, .@Guillaume + .@Limit;
-		set .@CC, .@Croix + .@Limit;
-		mapannounce "bat_room","Battleground -- Flavius SC [80-99] G: " + .@GC + "/35, C: " + .@CC + "/35 (Playing)",1,0x9ACD32;
-	}
-	end;
-
-OnReadyCheck:
-	if( $@FlaviusSC )
-		end;
-	set .@Guillaume, getwaitingroomstate(0,"SCR_Guillaume");
-	set .@Croix, getwaitingroomstate(0,"SCR_Croix");
-	
-	if( .@Guillaume < 1 || .@Croix < 1 )
-	{
-		if( .@Guillaume > 3 && .@Croix > 3 && !agitcheck() && $@FlaviusSC_Flood < gettimetick(2) )
-		{
-			announce "Battleground -- Flavius SC [80-99] G: " + .@Guillaume + "/5, C: " + .@Croix + "/5",0,0x9ACD32;
-			set $@FlaviusSC_Flood, gettimetick(2) + 15;
-		}
-		else
-			mapannounce "bat_room","Battleground -- Flavius SC [80-99] G: " + .@Guillaume + "/5, C: " + .@Croix + "/5",1,0x9ACD32;
-		end;
-	}
-
-	set $@FlaviusSC, 1;
 	initnpctimer;
-	donpcevent "SCR_Croix::OnEnterBG";
-	donpcevent "SCR_Guillaume::OnEnterBG";
-	set .Guillaume_Score, 0;
-	set .Croix_Score, 0;
+	set .Team1_Score, 0;
+	set .Team2_Score, 0;
 	setarray .Stone[1],0,0,0,0,0,0;
 	setarray .X[1],177,222,222,177,200,199;
 	setarray .Y[1],182,182,117,117,105,194;
-	bg_updatescore "bat_b04",.Guillaume_Score,.Croix_Score;
-	announce "Battleground -- Flavius SC [80-99] has started!",0,0x9ACD32;
-	sleep 2000;
-	bg_warp $@FlaviusSC_id1,"bat_b04",328,150;
-	bg_warp $@FlaviusSC_id2,"bat_b04",62,150;
-	sleep 1000;
-	donpcevent "#guisc_respawn::OnBGStart";
-	donpcevent "#crosc_respawn::OnBGStart";
 	for( set .@i, 1; .@i < 7; set .@i, .@i + 1 )
 		donpcevent "Neutral Stone#" + .@i + "::OnBGStart";
+
+	bg_updatescore "bat_b04",.Team1_Score,.Team2_Score;
+	sleep 2000;
+	bg_warp $@BG_Team1,"bat_b04",328,150;
+	bg_warp $@BG_Team2,"bat_b04",62,150;
+	sleep 2000;
+	donpcevent "#guisc_respawn::OnBGStart";
+	donpcevent "#crosc_respawn::OnBGStart";
 	end;
 
-OnGuillaumeScore:
-	set .Guillaume_Score, .Guillaume_Score + 1;
+OnTeam1Score:
+	set .Team1_Score, .Team1_Score + 1;
 	donpcevent "Flavius_SC::OnValidateScore";
 	end;
 
-OnCroixScore:
-	set .Croix_Score, .Croix_Score + 1;
+OnTeam2Score:
+	set .Team2_Score, .Team2_Score + 1;
 	donpcevent "Flavius_SC::OnValidateScore";
 	end;
 
 OnValidateScore:
-	if( $@FlaviusSC != 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" )
 		end;
-	if( .Guillaume_Score > 99 )
-		set .Guillaume_Score,99;
-	if( .Croix_Score > 99 )
-		set .Croix_Score,99;
+	if( .Team1_Score > 2 )
+		set .Team1_Score,2;
+	if( .Team2_Score > 2 )
+		set .Team2_Score,2;
 
-	bg_updatescore "bat_b04",.Guillaume_Score,.Croix_Score;
-	if( .Croix_Score >= 99 || .Guillaume_Score >= 99 )
+	bg_updatescore "bat_b04",.Team1_Score,.Team2_Score;
+	if( .Team2_Score >= 2 || .Team1_Score >= 2 )
 		donpcevent "Flavius_SC::OnMatchEnd";
 	end;
 
@@ -171,83 +102,59 @@ OnTimer840000:
 
 OnTimer900000:
 OnMatchEnd:
-	set $@FlaviusSC, 2;
-	// Rewards =====================================
-	if( .Guillaume_Score > .Croix_Score )
-	{ // Guillaume Won
-		bg_reward $@FlaviusSC_id1,7829,30,0,8507,"BG_SC",1,5,0;
-		bg_reward $@FlaviusSC_id2,7829,15,0,8507,"BG_SC",1,5,2;
-		mapannounce "bat_b04","The Guillaume army has won the Battle of Flavius SC!",1,0x0000FF;
-	}
-	else if( .Guillaume_Score < .Croix_Score )
-	{ // Croix Won
-		bg_reward $@FlaviusSC_id1,7829,15,0,8507,"BG_SC",1,5,2;
-		bg_reward $@FlaviusSC_id2,7829,30,0,8507,"BG_SC",1,5,0;
-		mapannounce "bat_b04","The Croix army has won the Battle of Flavius SC!",1,0xFF0000;
-	}
-	else
-	{
-		bg_reward $@FlaviusSC_id1,7829,15,0,8507,"BG_SC",1,5,1;
-		bg_reward $@FlaviusSC_id2,7829,15,0,8507,"BG_SC",1,5,1;
-		mapannounce "bat_b04","The battle is over. This is a Tie...!",1,0x9ACD32;
-	}
-	// =============================================
 	stopnpctimer;
 	donpcevent "#guisc_respawn::OnBGStop";
 	donpcevent "#crosc_respawn::OnBGStop";
-	for( set .@i, 1; .@i < 7; set .@i, .@i + 1 )
-	{
-		stopnpctimer "Neutral Stone#" + .@i;
-		stopnpctimer "csp" + .@i;
-		stopnpctimer "gsp" + .@i;
+	set $@BG_Status, 2;
+	// =======================================================
+	// Team Rewards
+	// =======================================================
+	if( .Team1_Score > .Team2_Score )
+	{ // Team 1 Won
+		bg_reward $@BG_Team1,7829,30,0,0,"BG_SC",1,5,0;
+		bg_reward $@BG_Team2,7829,15,0,0,"BG_SC",1,5,2;
+		mapannounce "bat_b04","The " + bg_get_data($@BG_Team1,2) + " army has won the Battle of Flavius SC!",1,bg_get_data($@BG_Team1,4);
 	}
-	sleep 2000;
-	bg_warp $@FlaviusSC_id1,"bat_b04",390,10;
-	bg_warp $@FlaviusSC_id2,"bat_b04",10,290;
-	sleep 3000;
-	mapannounce "bat_b04","Battle of Flavius SC will start in 15 seconds!",1,0x9ACD32;
-	initnpctimer;
-	end;
-
-OnTimer10000:
-	if( $@FlaviusSC == 2 )
-		mapannounce "bat_b04","Battle of Flavius SC will start in 5 seconds!",1,0x9ACD32;
-	end;
-
-OnTimer15000:
-	if( $@FlaviusSC != 2 )
-		end;
-OnReset:
-	stopnpctimer;
-	set .Guillaume_Score, 0;
-	set .Croix_Score, 0;
+	else if( .Team1_Score < .Team2_Score )
+	{ // Team 2 Won
+		bg_reward $@BG_Team1,7829,15,0,0,"BG_SC",1,5,2;
+		bg_reward $@BG_Team2,7829,30,0,0,"BG_SC",1,5,0;
+		mapannounce "bat_b04","The " + bg_get_data($@BG_Team2,2) + " army has won the Battle of Flavius SC!",1,bg_get_data($@BG_Team2,4);
+	}
+	else
+	{
+		bg_reward $@BG_Team1,7829,15,0,0,"BG_SC",1,5,1;
+		bg_reward $@BG_Team2,7829,15,0,0,"BG_SC",1,5,1;
+		mapannounce "bat_b04","The battle is over. This is a Tie...!",1,0x9ACD32;
+	}
+	// =======================================================
+	set .Team1_Score, 0;
+	set .Team2_Score, 0;
+	for( set .@i, 1; .@i < 7; set .@i, .@i + 1 )
+	{ // Stop Running Timers
+		stopnpctimer "Neutral Stone#" + .@i;
+		stopnpctimer "csp" + .@i; // Team2 Stone Point
+		stopnpctimer "gsp" + .@i; // Team1 Stone Point
+	}
+	sleep 5000;
 	setarray .Stone[1],0,0,0,0,0,0;
-	bg_destroy $@FlaviusSC_id1;
-	bg_destroy $@FlaviusSC_id2;
-	set $@FlaviusSC_id1, 0;
-	set $@FlaviusSC_id2, 0;
-	sleep 1000;
-	mapwarp "bat_b04","bat_room",155,150;
-	sleep 1000;
-	maprespawnguildid "bat_b04",0,3; // Just in case someone else
+	donpcevent "BG_Queue_Join::OnRotate";
 	bg_updatescore "bat_b04",0,0;
 	for( set .@i, 1; .@i < 7; set .@i, .@i + 1 )
-	{
+	{ // Return Stones to Starting Position and Normalize Stone Points
 		donpcevent "Neutral Stone#" + .@i + "::OnBGStop";
 		donpcevent "csp" + .@i + "::OnBGStop";
 		donpcevent "gsp" + .@i + "::OnBGStop";
 	}
-	set $@FlaviusSC, 0;
-	donpcevent "Flavius_SC::OnReadyCheck";
 	end;
 
 OnFlash:
-	if( $@FlaviusSC == 1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	if( $@BG_Status == 1 && getvariableofnpc(.BG_Arena$,"BG_Queue_Join") == "Flavius_SC" && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{
 		getmapxy .@m$, .@x, .@y, 0;
-		if( getcharid(4) == $@FlaviusSC_id1 )
+		if( getcharid(4) == $@BG_Team1 )
 			viewpointmap "bat_b04",1, .@x, .@y, .@Stone, 0x0000FF;
-		else if( getcharid(4) == $@FlaviusSC_id2 )
+		else if( getcharid(4) == $@BG_Team2 )
 			viewpointmap "bat_b04",1, .@x, .@y, .@Stone, 0xFF0000;
 
 		specialeffect2 73;
@@ -277,7 +184,7 @@ bat_b04,177,182,0	script	Neutral Stone#1	1905,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 || getcharid(4) == 0 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 || getcharid(4) == 0 )
 		end;
 	set .@Stone,atoi(strnpcinfo(2));
 	if( getvariableofnpc(.Stone[.@Stone],"Flavius_SC") != 0 )
@@ -323,17 +230,17 @@ bat_b04,177,117,0	duplicate(Neutral Stone#1)	Neutral Stone#4	1905,1,1
 bat_b04,200,105,0	duplicate(Neutral Stone#1)	Neutral Stone#5	1905,1,1
 bat_b04,199,194,0	duplicate(Neutral Stone#1)	Neutral Stone#6	1905,1,1
 
-// Stone Point - Croix Team
+// Stone Point - Team 2
 // *********************************************************************
 
 bat_b04,85,159,0	script	Stone Point::csp1	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Guillaume Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 1 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -345,25 +252,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Croix Stone has been stole by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Croix Stone captured by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Croix Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team2,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -371,12 +278,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0xFF0000;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team2,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnCroixScore";
+		donpcevent "Flavius_SC::OnTeam2Score";
 	}
 	end;
 
@@ -392,10 +299,10 @@ bat_b04,78,159,0	script	Stone Point::csp2	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Guillaume Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 1 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -407,25 +314,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Croix Stone has been stole by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Croix Stone captured by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Croix Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team2,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -433,12 +340,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0xFF0000;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team2,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnCroixScore";
+		donpcevent "Flavius_SC::OnTeam2Score";
 	}
 	end;
 
@@ -454,10 +361,10 @@ bat_b04,71,159,0	script	Stone Point::csp3	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Guillaume Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 1 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -469,25 +376,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Croix Stone has been stole by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Croix Stone captured by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Croix Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team2,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -495,12 +402,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0xFF0000;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team2,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnCroixScore";
+		donpcevent "Flavius_SC::OnTeam2Score";
 	}
 	end;
 
@@ -516,10 +423,10 @@ bat_b04,85,140,0	script	Stone Point::csp4	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Guillaume Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 1 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -531,25 +438,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Croix Stone has been stole by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Croix Stone captured by [ " + strcharinfo(0) + " ]",1,0xFF0000;	
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Croix Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team2,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -557,12 +464,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0xFF0000;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team2,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnCroixScore";
+		donpcevent "Flavius_SC::OnTeam2Score";
 	}
 	end;
 
@@ -578,10 +485,10 @@ bat_b04,78,140,0	script	Stone Point::csp5	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Guillaume Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 1 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -593,25 +500,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Croix Stone has been stole by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Croix Stone captured by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Croix Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team2,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -619,12 +526,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0xFF0000;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team2,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnCroixScore";
+		donpcevent "Flavius_SC::OnTeam2Score";
 	}
 	end;
 
@@ -640,10 +547,10 @@ bat_b04,71,140,0	script	Stone Point::csp6	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Guillaume Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team1 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 1 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -655,25 +562,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Croix Stone has been stole by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team2 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Croix Stone captured by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team2,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Croix Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team2,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -681,12 +588,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0xFF0000;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team2,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnCroixScore";
+		donpcevent "Flavius_SC::OnTeam2Score";
 	}
 	end;
 
@@ -698,17 +605,17 @@ OnBGStop:
 	end;
 }
 
-// Stone Point - Guillaume Team
+// Stone Point - Team 1
 // *********************************************************************
 
 bat_b04,312,159,0	script	Stone Point::gsp1	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Croix Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 2 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -720,25 +627,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Guillaume Stone has been stole by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Guillaume Stone captured by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Guillaume Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team1,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -746,12 +653,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0x0000FF;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team1,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnGuillaumeScore";
+		donpcevent "Flavius_SC::OnTeam1Score";
 	}
 	end;
 
@@ -767,10 +674,10 @@ bat_b04,319,159,0	script	Stone Point::gsp2	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Croix Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 2 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -782,25 +689,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Guillaume Stone has been stole by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Guillaume Stone captured by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Guillaume Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team1,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -808,12 +715,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0x0000FF;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team1,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnGuillaumeScore";
+		donpcevent "Flavius_SC::OnTeam1Score";
 	}
 	end;
 
@@ -829,10 +736,10 @@ bat_b04,326,159,0	script	Stone Point::gsp3	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Croix Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 2 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -844,25 +751,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Guillaume Stone has been stole by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Guillaume Stone captured by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Guillaume Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team1,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -870,12 +777,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0x0000FF;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team1,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnGuillaumeScore";
+		donpcevent "Flavius_SC::OnTeam1Score";
 	}
 	end;
 
@@ -891,10 +798,10 @@ bat_b04,312,140,0	script	Stone Point::gsp4	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Croix Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 2 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -906,25 +813,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Guillaume Stone has been stole by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Guillaume Stone captured by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Guillaume Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team1,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -932,12 +839,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0x0000FF;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team1,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnGuillaumeScore";
+		donpcevent "Flavius_SC::OnTeam1Score";
 	}
 	end;
 
@@ -953,10 +860,10 @@ bat_b04,319,140,0	script	Stone Point::gsp5	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Croix Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 2 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -968,25 +875,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Guillaume Stone has been stole by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Guillaume Stone captured by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Guillaume Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team1,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -994,12 +901,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0x0000FF;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team1,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnGuillaumeScore";
+		donpcevent "Flavius_SC::OnTeam1Score";
 	}
 	end;
 
@@ -1015,10 +922,10 @@ bat_b04,326,140,0	script	Stone Point::gsp6	1309,1,1,{
 	end;
 
 OnTouch:
-	if( $@FlaviusSC != 1 || HP < 1 )
+	if( $@BG_Status != 1 || getvariableofnpc(.BG_Arena$,"BG_Queue_Join") != "Flavius_SC" || HP < 1 )
 		end;
-	if( .Point != 0 && getcharid(4) == $@FlaviusSC_id2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
-	{ // Croix Stole
+	if( .Point != 0 && getcharid(4) == $@BG_Team2 && callfunc("SC_StoneCheck",getcharid(0)) == 0 )
+	{ // Team 2 Stole
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),getcharid(0);
 		setnpcdisplay strnpcinfo(3),"Stone Point",1309;
 
@@ -1030,25 +937,25 @@ OnTouch:
 		sc_end SC__INVISIBILITY;
 		pcblock 1,1; // Block Skills/Items
 
-		mapannounce "bat_b04","Guillaume Stone has been stole by [ " + strcharinfo(0) + " ]",1,0xFF0000;
-//		bg_rankpoints "sc_stole",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone has been stole by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team2,4);
+		bg_rankpoints "sc_stole",1;
 
 		addtimer 2000, "Flavius_SC::OnFlash";
 		set .Point,0;
 		stopnpctimer;
 	}
-	else if( .Point == 0 && getcharid(4) == $@FlaviusSC_id1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
+	else if( .Point == 0 && getcharid(4) == $@BG_Team1 && set(.@Stone,callfunc("SC_StoneCheck",getcharid(0))) > 0 )
 	{ // Check if user got a Stone
 		initnpctimer;
 		set .Point,.@Stone;
 		set .Count, 0;
 		deltimer "Flavius_SC::OnFlash";
 
-		mapannounce "bat_b04","Guillaume Stone captured by [ " + strcharinfo(0) + " ]",1,0x0000FF;
-//		bg_rankpoints "sc_captured",1;
+		mapannounce "bat_b04",bg_get_data($@BG_Team1,2) + " Stone captured by [ " + strcharinfo(0) + " ]",1,bg_get_data($@BG_Team1,4);
+		bg_rankpoints "sc_captured",1;
 		pcblock 1,0; // UnBlock Skills/Items
 
-		setnpcdisplay strnpcinfo(3),"Guillaume Stone",1905;
+		setnpcdisplay strnpcinfo(3),bg_get_data($@BG_Team1,2) + " Stone",1905;
 		set getvariableofnpc(.Stone[.Point],"Flavius_SC"),0;
 	}
 	end;
@@ -1056,12 +963,12 @@ OnTouch:
 OnTimer2000:
 	initnpctimer;
 	getmapxy .@m$, .@x, .@y, 1;
-	viewpointmap "bat_b04",1, .@x, .@y, .Point, 0x0000FF;
+	viewpointmap "bat_b04",1, .@x, .@y, .Point, bg_get_data($@BG_Team1,4);
 	specialeffect 223;
 	if( set(.Count, .Count + 1) >= 5 )
 	{
 		set .Count, 0;
-		donpcevent "Flavius_SC::OnGuillaumeScore";
+		donpcevent "Flavius_SC::OnTeam1Score";
 	}
 	end;
 
@@ -1077,44 +984,26 @@ OnBGStop:
 // *********************************************************************
 
 bat_b04,390,13,5	script	Therapist in battle#sc1	95,{
-	switch( $@FlaviusSC )
-	{
-	case 2:
-		bg_leave;
-		warp "bat_room",155,150;
-		break;
-	case 1:
-		mes "[Therapist in battle]";
-		mes "Just close your eyes, and take a deep breathe.";
-		mes "You can be free from pain.";
-		specialeffect2 312;
-		percentheal 100,100;
-		repairall;
-		close2;
-		openstorage;
-		break;
-	}
+	mes "[Therapist in battle]";
+	mes "Just close your eyes, and take a deep breathe.";
+	mes "You can be free from pain.";
+	specialeffect2 312;
+	percentheal 100,100;
+	repairall;
+	close2;
+	openstorage;
 	end;
 }
 
 bat_b04,10,293,5	script	Therapist in battle#sc2	95,{
-	switch( $@FlaviusSC )
-	{
-	case 2:
-		bg_leave;
-		warp "bat_room",155,150;
-		break;
-	case 1:
-		mes "[Therapist in battle]";
-		mes "Just close your eyes, and take a deep breathe.";
-		mes "You can be free from pain.";
-		specialeffect2 312;
-		percentheal 100,100;
-		repairall;
-		close2;
-		openstorage;
-		break;
-	}
+	mes "[Therapist in battle]";
+	mes "Just close your eyes, and take a deep breathe.";
+	mes "You can be free from pain.";
+	specialeffect2 312;
+	percentheal 100,100;
+	repairall;
+	close2;
+	openstorage;
 	end;
 }
 
@@ -1168,33 +1057,33 @@ OnTimer25000:
 // Flags
 // *********************************************************************
 
-bat_b04,304,231,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_1	973
-bat_b04,319,231,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_2	973
-bat_b04,304,218,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_3	973
-bat_b04,319,218,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_4	973
-bat_b04,304,231,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_5	973
-bat_b04,304,231,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_6	973
-bat_b04,335,142,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_7	973
-bat_b04,335,157,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_8	973
-bat_b04,390,16,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_9	973
-bat_b04,292,163,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_10	973
-bat_b04,292,136,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_11	973
-bat_b04,241,185,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_12	973
-bat_b04,247,179,1	duplicate(Guillaume camp#bat)	Guillaume camp#sc_13	973
+bat_b04,304,231,1	duplicate(Base Flag#bg)	Alpha Base#sc_1	973
+bat_b04,319,231,1	duplicate(Base Flag#bg)	Alpha Base#sc_2	973
+bat_b04,304,218,1	duplicate(Base Flag#bg)	Alpha Base#sc_3	973
+bat_b04,319,218,1	duplicate(Base Flag#bg)	Alpha Base#sc_4	973
+bat_b04,304,231,1	duplicate(Base Flag#bg)	Alpha Base#sc_5	973
+bat_b04,304,231,1	duplicate(Base Flag#bg)	Alpha Base#sc_6	973
+bat_b04,335,142,1	duplicate(Base Flag#bg)	Alpha Base#sc_7	973
+bat_b04,335,157,1	duplicate(Base Flag#bg)	Alpha Base#sc_8	973
+bat_b04,390,16,1	duplicate(Base Flag#bg)	Alpha Base#sc_9	973
+bat_b04,292,163,1	duplicate(Base Flag#bg)	Alpha Base#sc_10	973
+bat_b04,292,136,1	duplicate(Base Flag#bg)	Alpha Base#sc_11	973
+bat_b04,241,185,1	duplicate(Base Flag#bg)	Alpha Base#sc_12	973
+bat_b04,247,179,1	duplicate(Base Flag#bg)	Alpha Base#sc_13	973
 
-bat_b04,96,81,1	duplicate(Croix camp#bat)	Croix camp#sc_1	974
-bat_b04,96,68,1	duplicate(Croix camp#bat)	Croix camp#sc_2	974
-bat_b04,79,81,1	duplicate(Croix camp#bat)	Croix camp#sc_3	974
-bat_b04,79,68,1	duplicate(Croix camp#bat)	Croix camp#sc_4	974
-bat_b04,96,81,1	duplicate(Croix camp#bat)	Croix camp#sc_5	974
-bat_b04,96,81,1	duplicate(Croix camp#bat)	Croix camp#sc_6	974
-bat_b04,59,164,1	duplicate(Croix camp#bat)	Croix camp#sc_7	974
-bat_b04,59,137,1	duplicate(Croix camp#bat)	Croix camp#sc_8	974
-bat_b04,10,296,1	duplicate(Croix camp#bat)	Croix camp#sc_9	974
-bat_b04,110,162,1	duplicate(Croix camp#bat)	Croix camp#sc_10	974
-bat_b04,110,137,1	duplicate(Croix camp#bat)	Croix camp#sc_11	974
-bat_b04,152,120,1	duplicate(Croix camp#bat)	Croix camp#sc_12	974
-bat_b04,158,114,1	duplicate(Croix camp#bat)	Croix camp#sc_13	974
+bat_b04,96,81,1	duplicate(Base Flag#bg)	Omega Base#sc_1	974
+bat_b04,96,68,1	duplicate(Base Flag#bg)	Omega Base#sc_2	974
+bat_b04,79,81,1	duplicate(Base Flag#bg)	Omega Base#sc_3	974
+bat_b04,79,68,1	duplicate(Base Flag#bg)	Omega Base#sc_4	974
+bat_b04,96,81,1	duplicate(Base Flag#bg)	Omega Base#sc_5	974
+bat_b04,96,81,1	duplicate(Base Flag#bg)	Omega Base#sc_6	974
+bat_b04,59,164,1	duplicate(Base Flag#bg)	Omega Base#sc_7	974
+bat_b04,59,137,1	duplicate(Base Flag#bg)	Omega Base#sc_8	974
+bat_b04,10,296,1	duplicate(Base Flag#bg)	Omega Base#sc_9	974
+bat_b04,110,162,1	duplicate(Base Flag#bg)	Omega Base#sc_10	974
+bat_b04,110,137,1	duplicate(Base Flag#bg)	Omega Base#sc_11	974
+bat_b04,152,120,1	duplicate(Base Flag#bg)	Omega Base#sc_12	974
+bat_b04,158,114,1	duplicate(Base Flag#bg)	Omega Base#sc_13	974
 
 // MapFlags
 // *********************************************************************
