@@ -536,7 +536,7 @@ OnTimer100:
 	end;
 }
 
-prontera,164,167,0	script	Private MVP Room	100,{
+prontera,164,165,4	script	Private MVP Room	100,{
 	mes "[Private MVP Room]";
 	mes "Please select a private MVP room.";
 	if ( getvariableofnpc(.rentitemid, "MVP Summoner") && getvariableofnpc(.rentitemamount, "MVP Summoner") )
