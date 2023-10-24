@@ -290,7 +290,7 @@ region_8,55,71,0	duplicate(GreenTotem)	Sacrifice Totem#3	111,2,2
 // *********************************************************************
 
 region_8	mapflag	bg_topscore	5
-region_8	mapflag	battleground	3
+//region_8	mapflag	battleground	3
 region_8	mapflag	nomemo
 region_8	mapflag	nosave	SavePoint
 region_8	mapflag	noteleport

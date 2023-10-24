@@ -3847,6 +3847,7 @@ void npc_read_event_script(void)
 		{"Die Event",script_config.die_event_name},
 		{"Kill PC Event",script_config.kill_pc_event_name},
 		{"Kill NPC Event",script_config.kill_mob_event_name},
+		{"PC Attack Event",script_config.pc_atk_event_name},		
 	};
 
 	for (i = 0; i < NPCE_MAX; i++)

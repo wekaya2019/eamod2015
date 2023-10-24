@@ -1,4 +1,4 @@
-CREATE TABLE `donate_item_db` (
+﻿CREATE TABLE `donate_item_db` (
   `id` smallint(5) unsigned NOT NULL default '0',
   `price` float(9,2) unsigned NOT NULL,
   PRIMARY KEY  (`id`)
