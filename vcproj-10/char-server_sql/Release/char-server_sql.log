@@ -1,4 +1,4 @@
-﻿Build started 10/25/2023 1:17:30 AM.
+﻿Build started 10/26/2023 8:22:12 AM.
      1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\char-server_sql.vcxproj" on node 3 (build target(s)).
      1>InitializeBuildStatus:
          Creating "char-server_sql\Release\char-server_sql.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -43,4 +43,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:14.92
+Time Elapsed 00:00:48.13

@@ -355,6 +355,7 @@ int itemdb_isequip2(struct item_data *data)
 		case IT_WEAPON:
 		case IT_ARMOR:
 		case IT_AMMO:
+		case IT_CHARM:
 			return 1;
 		default:
 			return 0;
@@ -372,6 +373,7 @@ int itemdb_isstackable(int nameid)
 	  case IT_ARMOR:
 	  case IT_PETEGG:
 	  case IT_PETARMOR:
+      case IT_CHARM:
 		  return 0;
 	  default:
 		  return 1;

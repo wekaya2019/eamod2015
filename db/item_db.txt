@@ -6990,30 +6990,30 @@
 30601,diamond_dust,_Diamond_dust,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
 
 //Special  bAddRTalismans
-//30377,Charm,Charm,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30378,Talisman,Talisman:_HP+500,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30379,Talisman:_Flee+5,Talisman:_Flee+5,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30380,Talisman:_Flee+10,Talisman:_Flee+10,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30381,Talisman:_Aspd+10,Aspd+10,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30382,Talisman:_Castrate-2%,cast reduce 2%,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30383,Talisman:_HP_Recovery_Rate,Hp recovery,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30384,Talisman:_Def+5,Def +5,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30385,Talisman:_Atk+5,Attack +5,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30386,Talisman:_Mdef+5,Mdef +5,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30387,Talisman:_Hit+10,Hit+ 10,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30388,Talisman,¿¤¸®¸àÅ»_È�,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30389,Talisman:_Freeze_Resist_5,Freeze resist+5,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30390,Talisman:_Stone_Resist_5%,Stone resist 5%,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30391,Talisman:_Stun_Resist_5%,Resist Stun 5%,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30392,Talisman:_Curse_Resist_5%,Curse resist 5%,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30393,Talisman:_Inflict_Demi_2%,Inflict Demi 2%,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30394,Talisman:_Reduce_Demi_2%,Demi Reduce 2%,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30395,Talisman:_Crit_30,Crit +30,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30396,Talisman:_Reduce_Water_5%,+5 water,05,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30397,Talisman:_Reduce_Fire_5%,+5 fire5,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30398,Talisman:_Reduce_Wind_5%,+5% wind,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30399,Talisman:_Reduce_Earth_5%,+5 Earth,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
-30400,Talisman:_Movement_Speed_5%,Speed +5%,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
+30377,엘리멘탈_화,HP+200,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30378,엘리멘탈_화,HP+500,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30379,엘리멘탈_화,Flee+5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30380,엘리멘탈_화,Flee+10,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30381,엘리멘탈_화,Aspd+10,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30382,엘리멘탈_화,Castrate-2%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30383,엘리멘탈_화,HP_Recovery_Rate,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30384,엘리멘탈_화,Def+5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30385,엘리멘탈_화,Attack +5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30386,엘리멘탈_화,Mdef +5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30387,엘리멘탈_화,Hit+ 10,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30388,엘리멘탈_화,Delay-5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30389,엘리멘탈_화,Freeze resist+5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30390,엘리멘탈_화:,Stone resist 5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30391,엘리멘탈_화,Resist Stun 5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30392,엘리멘탈_화,Curse resist 5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30393,엘리멘탈_화,Inflict Demi 2%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30394,엘리멘탈_화,Demi Reduce 2%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30395,엘리멘탈_화,Crit +30,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30396,엘리멘탈_화,+5 water,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30397,엘리멘탈_화,+5 fire5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30398,엘리멘탈_화,+5% wind,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30399,엘리멘탈_화,+5 Earth,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+30400,엘리멘탈_화:,Speed +5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
 
 //Ruskak
 30165,archangeling_rucksack,archangeling rucksack,5,20,,600,,2,,1,0xFFFFFFFF,63,2,001,,1,1,1650,{ bonus2 bSubRace,7,1; },{},{}
@@ -7072,3 +7072,15 @@
 19057,Baby_Super_Novice_Suit,Baby Super Novice Suit,5,89000,,500,,4,,2,0xFFFFFFFE,7,2,8192,,10,1,0,{ changebase 4045; },{},{ changebase Class; }
 19044,Baby_Knight_Suit,Baby Knight Suit,4,20,,1000,155,,1,0,0x00004082,7,2,8192,4,48,1,3,{ changebase 4030; },{},{ changebase Class; }
 //19015,Prof_Suit,Professor Suit,5,89000,,500,,4,,2,0xFFFFFFFE,7,2,16,,10,1,0,{ changebase 4017; },{},{
+
+//New Mid Quest HGs
+30329,익명요청,Censor_Bar,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1732,{ bonus bCastrate,-10; bonus bStr,1; },{},{}
+30330,사이클롭아이,Cyclop's_Eye,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1732,{ bonus bCastrate,-10; bonus bStr,1; },{},{}
+30331,악마날개귀,Evil_Wing_Ears,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1732,{ bonus bCastrate,-10; bonus bStr,1; },{},{}
+30332,나비가면,Masquerade,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1732,{ bonus bCastrate,-10; bonus bStr,1; },{},{}
+30333,옵저버,Observer,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1732,{ bonus bCastrate,-10; bonus bStr,1; },{},{}
+30334,페코페코날개귀,Peco_Ears,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1732,{ bonus bCastrate,-10; bonus bStr,1; },{},{}
+30335,브라질트윈리본,Ribbon_of_Life,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1732,{ bonus bCastrate,-10; bonus bStr,1; },{},{}
+30336,로보아이,Robo_Eyes,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1732,{ bonus bCastrate,-10; bonus bStr,1; },{},{}
+30337,스쿠버마스크,Scuba_Gear,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1732,{ bonus bCastrate,-10; bonus bStr,1; },{},{}
+30338,사이그룬의날개,Sigrun's_Wing,5,20,,600,,2,,1,0xFFFFFFFF,7,2,512,,1,1,1732,{ bonus bCastrate,-10; bonus bStr,1; },{},{}
