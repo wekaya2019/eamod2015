@@ -30,7 +30,7 @@
 
 
 // Main Town, South ----------------------------------------------------------
-new_pront,154,191,3	script	Kafra Employee::kaf_payon1071	558,{
+prontera,163,191,3	script	Kafra Employee::kaf_payon1071	558,{
 	cutin "kafra_05",2;
 	callfunc "F_KafSetPay";
 	mes "[Kafra Employee]";
