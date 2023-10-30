@@ -589,30 +589,30 @@
 30601,diamond_dust,_Diamond_dust,5,20,,600,,2,,1,0xFFFFFFFF,7,2,1024,,1,1,1894,{bonus bAllstats,+10;},{},{}
 
 //Special  bAddRTalismans
-30377,엘리멘탈_화,HP+200,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30378,엘리멘탈_화,HP+500,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30379,엘리멘탈_화,Flee+5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30380,엘리멘탈_화,Flee+10,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30381,엘리멘탈_화,Aspd+10,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30382,엘리멘탈_화,Castrate-2%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30383,엘리멘탈_화,HP_Recovery_Rate,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30384,엘리멘탈_화,Def+5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30385,엘리멘탈_화,Attack +5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30386,엘리멘탈_화,Mdef +5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30387,엘리멘탈_화,Hit+ 10,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30388,엘리멘탈_화,Delay-5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30389,엘리멘탈_화,Freeze resist+5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30390,엘리멘탈_화:,Stone resist 5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30391,엘리멘탈_화,Resist Stun 5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30392,엘리멘탈_화,Curse resist 5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30393,엘리멘탈_화,Inflict Demi 2%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30394,엘리멘탈_화,Demi Reduce 2%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30395,엘리멘탈_화,Crit +30,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30396,엘리멘탈_화,+5 water,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30397,엘리멘탈_화,+5 fire5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30398,엘리멘탈_화,+5% wind,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30399,엘리멘탈_화,+5 Earth,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
-30400,엘리멘탈_화:,Speed +5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30377,엘리멘탈_화,HP+200,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30378,엘리멘탈_화,HP+500,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30379,엘리멘탈_화,Flee+5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30380,엘리멘탈_화,Flee+10,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30381,엘리멘탈_화,Aspd+10,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30382,엘리멘탈_화,Castrate-2%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30383,엘리멘탈_화,HP_Recovery_Rate,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30384,엘리멘탈_화,Def+5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30385,엘리멘탈_화,Attack +5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30386,엘리멘탈_화,Mdef +5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30387,엘리멘탈_화,Hit+ 10,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30388,엘리멘탈_화,Delay-5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30389,엘리멘탈_화,Freeze resist+5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30390,엘리멘탈_화:,Stone resist 5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30391,엘리멘탈_화,Resist Stun 5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30392,엘리멘탈_화,Curse resist 5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30393,엘리멘탈_화,Inflict Demi 2%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30394,엘리멘탈_화,Demi Reduce 2%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30395,엘리멘탈_화,Crit +30,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30396,엘리멘탈_화,+5 water,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30397,엘리멘탈_화,+5 fire5,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30398,엘리멘탈_화,+5% wind,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30399,엘리멘탈_화,+5 Earth,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
+//30400,엘리멘탈_화:,Speed +5%,13,6,,0,,,,,0xFFFFFFFF,15,2,,,1,,,{bonus bStr,2; },{},{}
 
 //Ruskak
 30165,archangeling_rucksack,archangeling rucksack,5,20,,600,,2,,1,0xFFFFFFFF,63,2,001,,1,1,1650,{ bonus2 bSubRace,7,1; },{},{}

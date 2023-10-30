@@ -1,5 +1,5 @@
-﻿Build started 10/27/2023 7:10:04 AM.
-     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\map-server_sql.vcxproj" on node 4 (build target(s)).
+﻿Build started 10/30/2023 11:43:55 PM.
+     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\map-server_sql.vcxproj" on node 4 (rebuild target(s)).
      1>InitializeBuildStatus:
          Creating "map-server_sql\Release\map-server_sql.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
@@ -97,8 +97,8 @@
        FinalizeBuildStatus:
          Deleting file "map-server_sql\Release\map-server_sql.unsuccessfulbuild".
          Touching "map-server_sql\Release\map-server_sql.lastbuildstate".
-     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\map-server_sql.vcxproj" (build target(s)).
+     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\map-server_sql.vcxproj" (rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:47.90
+Time Elapsed 00:01:15.81

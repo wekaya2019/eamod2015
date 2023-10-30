@@ -1,5 +1,5 @@
-﻿Build started 10/27/2023 7:10:02 AM.
-     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql.vcxproj" on node 2 (build target(s)).
+﻿Build started 10/30/2023 11:43:51 PM.
+     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql.vcxproj" on node 2 (rebuild target(s)).
      1>InitializeBuildStatus:
          Creating "common_sql\Release\common_sql.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
@@ -11,8 +11,8 @@
        FinalizeBuildStatus:
          Deleting file "common_sql\Release\common_sql.unsuccessfulbuild".
          Touching "common_sql\Release\common_sql.lastbuildstate".
-     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql.vcxproj" (build target(s)).
+     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\common_sql.vcxproj" (rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.91
+Time Elapsed 00:00:02.46

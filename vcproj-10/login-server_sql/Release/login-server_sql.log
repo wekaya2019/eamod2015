@@ -1,5 +1,5 @@
-﻿Build started 10/27/2023 7:10:04 AM.
-     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\login-server_sql.vcxproj" on node 2 (build target(s)).
+﻿Build started 10/30/2023 11:43:53 PM.
+     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\login-server_sql.vcxproj" on node 2 (rebuild target(s)).
      1>InitializeBuildStatus:
          Creating "login-server_sql\Release\login-server_sql.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
@@ -23,8 +23,8 @@
        FinalizeBuildStatus:
          Deleting file "login-server_sql\Release\login-server_sql.unsuccessfulbuild".
          Touching "login-server_sql\Release\login-server_sql.lastbuildstate".
-     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\login-server_sql.vcxproj" (build target(s)).
+     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2015\vcproj-10\login-server_sql.vcxproj" (rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:10.10
+Time Elapsed 00:00:09.71
