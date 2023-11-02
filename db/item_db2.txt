@@ -370,7 +370,7 @@
 //ZAFT costum
 
 //Bloody Yasha Set
-30517,sahkmet_ears,Bloody_Yasha_Ears,5,20,,600,,2,,1,0xFFFFFFFF,63,2,1024,,1,1,1822,{ bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus bCastrate,4; bonus bMaxHPrate,3; bonus bIntravision,0; },{},{}
+30517,sahkmet_ears,Bloody_Yasha_Ears,5,20,,600,,2,,1,0xFFFFFFFF,63,2,1024,,1,1,1822,{ bonus2 bSubRace,7,2; bonus bMaxHP,3; bonus bMaxSP,2; bonus2 bAddRace,7,3; bonus2 bMagicAddRace,7,3; },{},{}
 30518,sahkmet_taurus,Bloody_Yasha_Taurus,5,20,,600,,2,,1,0xFFFFFFFF,63,2,2048,,1,1,1823,{ bonus2 bSubRace,7,2; bonus bMaxHP,3; bonus bMaxSP,2; bonus2 bAddRace,7,3; bonus2 bMagicAddRace,7,3; },{},{}
 30519,sahkmet_wings,Bloody_Yasha_Wings,5,20,,600,,2,,1,0xFFFFFFFF,63,2,4096,,1,1,1824,{ bonus2 bAddRace,7,2; bonus2 bMagicAddRace,7,2; bonus2 bSubRace,7,2; bonus bMaxHPrate,5; bonus bAllStats,1; bonus bCastrate,2; bonus2 bAddEff,Eff_Curse,500; bonus2 bAddEff,Eff_Stone,500; bonus2 bSubEle,1,1; bonus2 bSubEle,2,1; bonus2 bSubEle,3,1; bonus2 bSubEle,4,1; bonus2 bSubEle,5,1; bonus2 bSubEle,6,1; bonus2 bSubEle,7,1; bonus2 bSubEle,8,1; bonus2 bSubEle,9,1; },{},{}
 

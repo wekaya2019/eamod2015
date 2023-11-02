@@ -1,5 +1,5 @@
-﻿Build started 10/16/2023 3:36:51 PM.
-     1>Project "C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\common.vcxproj" on node 2 (rebuild target(s)).
+﻿Build started 11/2/2023 5:30:48 PM.
+     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2023workingBG_quene\vcproj-10\common.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "common\Debug\common.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
@@ -41,12 +41,12 @@
          common\Debug\strlib.obj
          common\Debug\timer.obj
          common\Debug\utils.obj /ignore:4006 /ignore:4221 
-         common.vcxproj -> C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\common\Debug\common.lib
+         common.vcxproj -> C:\Users\Dennis Gaming\Desktop\eamod2023workingBG_quene\vcproj-10\common\Debug\common.lib
        FinalizeBuildStatus:
          Deleting file "common\Debug\common.unsuccessfulbuild".
          Touching "common\Debug\common.lastbuildstate".
-     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\common.vcxproj" (rebuild target(s)).
+     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2023workingBG_quene\vcproj-10\common.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.15
+Time Elapsed 00:00:02.72

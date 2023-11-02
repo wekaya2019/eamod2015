@@ -1,4 +1,4 @@
-aretnorp,190,254,5	script	Soul Linker	775,{
+Prontera,190,254,5	script	Soul Linker	775,{
 	mes "^0000FF[ "+strnpcinfo(1)+" ]^000000";
 	mes "Hello "+strcharinfo(0)+"";
 	mes "Do you want me to Soul Link you?";
@@ -28,6 +28,6 @@ aretnorp,190,254,5	script	Soul Linker	775,{
 	}
 
 OnInit:
-	setarray .itemid[0],523,1; // replace with TCG Item id. Format Item id,Item quantity
+	setarray .itemid[0],7179,1; // replace with TCG Item id. Format Item id,Item quantity
 	end;
 } 

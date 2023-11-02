@@ -19,7 +19,7 @@
 //=2. Do not change the credits.
 //=3. Do not sell the script to earn money.
 //==============================================================================//
-prontera,153,189,5	script	[Job Changer]	808,{
+prontera,159,191,5	script	[Job Changer]	808,{
 set $@blvl,255;// max lvl of your server
 set $@jlvl,120;// max job lvl of your server
 	if( Class != 0 ) goto zzzz;

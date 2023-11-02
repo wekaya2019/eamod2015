@@ -1,5 +1,5 @@
-﻿Build started 10/16/2023 3:36:56 PM.
-     1>Project "C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\char-server_sql.vcxproj" on node 4 (rebuild target(s)).
+﻿Build started 11/2/2023 5:30:53 PM.
+     1>Project "C:\Users\Dennis Gaming\Desktop\eamod2023workingBG_quene\vcproj-10\char-server_sql.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "char-server_sql\Debug\char-server_sql.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
@@ -32,10 +32,9 @@
          "char-server_sql\Debug\int_quest.obj"
          "char-server_sql\Debug\int_storage.obj"
          "char-server_sql\Debug\inter.obj"
-         "C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\common\Debug\common.lib"
-         "C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\common_sql\Debug\common_sql.lib"
+         "C:\Users\Dennis Gaming\Desktop\eamod2023workingBG_quene\vcproj-10\common\Debug\common.lib"
+         "C:\Users\Dennis Gaming\Desktop\eamod2023workingBG_quene\vcproj-10\common_sql\Debug\common_sql.lib"
        Manifest:
-         Deleting file "char-server_sql\Debug\char-server_sql.exe.embed.manifest".
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"char-server_sql\Debug\char-server_sql.exe.embed.manifest" /manifest "char-server_sql\Debug\char-server_sql.exe.intermediate.manifest"
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"char-server_sql\Debug\char-server_sql.exe.embed.manifest.res" char-server_sql\Debug\char-server_sql_manifest.rc 
        LinkEmbedManifest:
@@ -52,14 +51,14 @@
          "char-server_sql\Debug\int_quest.obj"
          "char-server_sql\Debug\int_storage.obj"
          "char-server_sql\Debug\inter.obj"
-         "C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\common\Debug\common.lib"
-         "C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\common_sql\Debug\common_sql.lib"
-         char-server_sql.vcxproj -> C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\..\char-server_sql.exe
+         "C:\Users\Dennis Gaming\Desktop\eamod2023workingBG_quene\vcproj-10\common\Debug\common.lib"
+         "C:\Users\Dennis Gaming\Desktop\eamod2023workingBG_quene\vcproj-10\common_sql\Debug\common_sql.lib"
+         char-server_sql.vcxproj -> C:\Users\Dennis Gaming\Desktop\eamod2023workingBG_quene\vcproj-10\..\char-server_sql.exe
        FinalizeBuildStatus:
          Deleting file "char-server_sql\Debug\char-server_sql.unsuccessfulbuild".
          Touching "char-server_sql\Debug\char-server_sql.lastbuildstate".
-     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eAthena\vcproj-10\char-server_sql.vcxproj" (rebuild target(s)).
+     1>Done Building Project "C:\Users\Dennis Gaming\Desktop\eamod2023workingBG_quene\vcproj-10\char-server_sql.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:15.28
+Time Elapsed 00:00:12.87
